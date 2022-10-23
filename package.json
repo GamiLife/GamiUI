@@ -1,0 +1,72 @@
+{
+  "name": "root",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/**"
+  ],
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install-deps": "npm install --legacy-peer-deps",
+    "test:gami-ui": "npm run test --workspace=@gamiui/standard",
+    "test-snapshot-update:gami-ui": "npm run test:snapshot-update --workspace=@gamiui/standard",
+    "storybook:gami-ui": "npm run storybook --workspace=@gamiui/standard",
+    "build-storybook:gami-ui": "npm run build-storybook --workspace=@gamiui/standard",
+    "chromatic:gami-ui": "npm run chromatic --workspace=@gamiui/standard",
+    "prepare-husky:gami-ui": "npm run prepare-husky --workspace=@gamiui/standard",
+    "semantic-release:gami-ui": "npm run semantic-release --workspace=@gamiui/standard",
+    "build:gami-ui": "npm run build --workspace=@gamiui/standard",
+    "preversion:gami-ui": "npm run preversion --workspace=@gamiui/standard",
+    "prepublish:gami-ui": "npm run prepublish --workspace=@gamiui/standard",
+    "publishfinal:gami-ui": "npm run publishfinal --workspace=@gamiui/standard",
+    "publishOnly:gami-ui": "npm run publishOnly --workspace=@gamiui/standard",
+    "version:gami-ui": "npm run version --workspace=@gamiui/standard",
+    "postversion:gami-ui": "npm run postversion --workspace=@gamiui/standard",
+    "create-component:gami-ui": "npm run create-component --workspace=@gamiui/standard",
+    "develop:gami-docs": "npm run develop --workspace=@gamiui/docs",
+    "build-docs:gami-docs": "npm run build --workspace=@gamiui/docs",
+    "serve:gami-docs": "npm run serve --workspace=@gamiui/docs",
+    "deploy-netlify:gami-docs": "npm run deploy-netlify --workspace=@gamiui/docs",
+    "deployprop-netlify:gami-docs": "npm run deployprop-netlify --workspace=@gamiui/docs",
+    "publishfinal:gami-docs": "npm run deploy-netlify --workspace=@gamiui/docs",
+    "clean:gami-docs": "npm run clean --workspace=@gamiui/docs",
+    "format:gami-ui": "npm run format --workspace=@gamiui/standard",
+    "format:gami-docs": "npm run format --workspace=@gamiui/docs",
+    "lint:gami-ui": "npm run lint --workspace=@gamiui/standard",
+    "lint:gami-docs": "npm run lint --workspace=@gamiui/docs",
+    "lint-fix:gami-ui": "npm run lint:fix --workspace=@gamiui/standard",
+    "lint-fix:gami-docs": "npm run lint:fi --workspace=@gamiui/docsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yei-Linux/GamificationStorybook.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "babel-plugin-tsconfig-paths-module-resolver": "^1.0.3",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.0"
+  },
+  "author": "Yei Linux",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yei-Linux/GamificationStorybook/issues"
+  },
+  "homepage": "https://github.com/Yei-Linux/GamificationStorybook#readme",
+  "dependencies": {}
+}
