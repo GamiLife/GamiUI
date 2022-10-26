@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = {
   presets: [
     '@babel/preset-env',
@@ -11,7 +12,6 @@ module.exports = {
     '@babel/plugin-transform-react-jsx',
     '@babel/plugin-syntax-jsx',
     'preval',
-    'emotion',
     'tsconfig-paths-module-resolver',
     [
       'babel-plugin-replace-imports',
