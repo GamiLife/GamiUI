@@ -12,6 +12,10 @@ export interface ILayoutElement {
    * Children Prop
    */
   children: React.ReactNode
+  /**
+   * className Prop
+   */
+  className?: string
 }
 
 interface IHeader extends ILayoutElement {
@@ -52,16 +56,28 @@ const Header = ({ children, isSticky = false, style }: IHeader) => {
   )
 }
 
-const Content = ({ children, style }: ILayoutElement) => {
-  return <S.Content style={style}>{children}</S.Content>
+const Content = ({ children, style, className }: ILayoutElement) => {
+  return (
+    <S.Content style={style} className={className}>
+      {children}
+    </S.Content>
+  )
 }
 
-const Sidebar = ({ children, style }: ILayoutElement) => {
-  return <S.Sidebar style={style}>{children}</S.Sidebar>
+const Sidebar = ({ children, style, className }: ILayoutElement) => {
+  return (
+    <S.Sidebar style={style} className={className}>
+      {children}
+    </S.Sidebar>
+  )
 }
 
-const Footer = ({ children, style }: ILayoutElement) => {
-  return <S.Footer style={style}>{children}</S.Footer>
+const Footer = ({ children, style, className }: ILayoutElement) => {
+  return (
+    <S.Footer style={style} className={className}>
+      {children}
+    </S.Footer>
+  )
 }
 
 const Layout = ({
