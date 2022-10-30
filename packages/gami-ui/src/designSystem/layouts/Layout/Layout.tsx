@@ -48,9 +48,14 @@ export interface ILayout {
   minHeight?: string
 }
 
-const Header = ({ children, isSticky = false, style }: IHeader) => {
+const Header = ({
+  children,
+  isSticky = false,
+  style,
+  className = '',
+}: IHeader) => {
   return (
-    <S.Header style={style} className={cls({ sticky: isSticky })}>
+    <S.Header style={style} className={cls(className, { sticky: isSticky })}>
       {children}
     </S.Header>
   )
