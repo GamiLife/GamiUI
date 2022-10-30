@@ -6,7 +6,6 @@ export const Tab = styled.div<{ $width: string }>`
 `
 
 export const TabList = styled.ul`
-  margin: auto;
   display: flex;
   width: auto;
   list-style: none;
@@ -45,4 +44,10 @@ export const TabAnimation = styled.div<{ $left: string; $width: string }>`
   background-color: ${defaultTheme.light.primary.jordyBlue};
 
   transition: width 0.3s, left 0.3s, right 0.3s;
+`
+
+export const TabListWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `

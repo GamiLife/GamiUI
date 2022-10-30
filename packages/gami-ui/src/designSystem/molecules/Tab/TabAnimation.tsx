@@ -3,9 +3,9 @@ import * as S from './Tab.styles'
 
 export interface ITabAnimation {
   left: string
-  width?: string
+  width?: number
 }
 
-export const TabAnimation = ({ left, width = '33px' }: ITabAnimation) => {
-  return <S.TabAnimation $left={left} $width={width} />
+export const TabAnimation = ({ left, width = 33 }: ITabAnimation) => {
+  return <S.TabAnimation $left={left} $width={`${width}px`} />
 }

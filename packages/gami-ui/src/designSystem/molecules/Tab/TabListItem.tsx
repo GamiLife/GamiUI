@@ -28,6 +28,7 @@ const TabListItem = ({ label, tabId, index }: ITabListItem) => {
 
   return (
     <S.TabItem
+      id={`gamui__tablist__item--${index}`}
       role="tab"
       aria-selected={tabId == tabIdFromStore}
       className={cls({ active: tabId == tabIdFromStore })}
