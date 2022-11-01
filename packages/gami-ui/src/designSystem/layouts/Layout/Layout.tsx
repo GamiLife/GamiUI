@@ -1,7 +1,9 @@
 import { cls } from 'core/utils/cls'
 import useCssHandle from 'hooks/useCssHandle'
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import * as S from './Layout.styles'
+
+export type TLayout = 'header' | 'main' | 'sidebar' | 'footer' | 'wrapper'
 
 export interface ILayoutElement {
   /**
@@ -85,6 +87,10 @@ const Footer = ({ children, style, className }: ILayoutElement) => {
   )
 }
 
+const Wrapper = ({ children }: ILayoutElement) => {
+  return <Fragment>{children}</Fragment>
+}
+
 const Layout = ({
   className,
   children,
@@ -92,6 +98,8 @@ const Layout = ({
   height = '100%',
   minHeight = '100vh',
 }: ILayout) => {
+  const [gridTemplate, setGridTemplate] = useState('')
+
   const { handles } = useCssHandle({
     classes: {
       wrapper: ['wrapper'],
@@ -132,6 +140,98 @@ const Layout = ({
     return isSidebarPresent
   }
 
+  const getLayoutAreaName = (child: React.ReactNode): TLayout | null => {
+    if (!React.isValidElement(child)) return null
+
+    if (child.type === Sidebar) return 'sidebar'
+    if (child.type === Header) return 'header'
+    if (child.type === Content) return 'main'
+    if (child.type === Footer) return 'footer'
+    if (child.type === Wrapper) return 'wrapper'
+
+    return null
+  }
+
+  const makeGridTemplateAreaNames = (children: React.ReactNode) => {
+    const gridTemplateAreas: Array<TLayout | TLayout[]> = []
+    React.Children.map(children, (child) => {
+      const areaName = getLayoutAreaName(child)
+      if (!areaName) return
+
+      if (areaName === 'wrapper') {
+        const childValid = React.isValidElement(child)
+        if (!childValid) return null
+
+        const childrenAreaNames: any = makeGridTemplateAreaNames(
+          child.props.children
+        )
+        gridTemplateAreas.push(childrenAreaNames)
+        return
+      }
+
+      gridTemplateAreas.push(areaName)
+      return
+    })
+
+    return gridTemplateAreas
+  }
+
+  //TODO: Add feature related with sizes and dimensions
+  const makeGridMatrixString = (
+    templateAreaNames: Array<TLayout | TLayout[]>
+  ) => {
+    const rows = templateAreaNames.length
+    const maxColSize = templateAreaNames.reduce((acc, item) => {
+      const isArray = Array.isArray(item)
+
+      if (!isArray) return acc
+
+      return item.length > acc ? item.length : acc
+    }, 1)
+    const cols = maxColSize < 3 ? 3 : maxColSize
+
+    let matrixString = ''
+
+    for (let i = 0; i < rows; i++) {
+      const item = templateAreaNames[i]
+      const itemIsStr = !Array.isArray(item)
+
+      const block: TLayout[] = []
+
+      for (let j = 0; j < cols; j++) {
+        if (itemIsStr) {
+          block.push(item)
+          continue
+        }
+
+        const subItem = item[j]
+        block.push(`${subItem ?? item.at(-1)}`)
+      }
+
+      const isNotMain = block.includes('header') || block.includes('footer')
+
+      const blockString = block.join(' ')
+      const rowString = `'${blockString}' ${
+        isNotMain ? 'minmax(min-content, max-content)' : 'auto'
+      }`
+
+      matrixString += `${rowString} `
+    }
+
+    return matrixString
+  }
+
+  const makeGridLayouts = () => {
+    const templateAreaNames = makeGridTemplateAreaNames(childrenModified)
+    const matrixString = makeGridMatrixString(templateAreaNames)
+    return matrixString
+  }
+
+  useEffect(() => {
+    const gridTemplateStr = makeGridLayouts()
+    setGridTemplate(gridTemplateStr)
+  }, [])
+
   return (
     <S.Layout
       className={cls(handles.wrapper, className ?? '')}
@@ -139,6 +239,7 @@ const Layout = ({
       $height={height}
       $minHeight={minHeight}
       $hasSidebar={validateHasSidebar(childrenModified)}
+      $gridTemplate={gridTemplate}
     >
       {childrenModified}
     </S.Layout>
@@ -149,10 +250,12 @@ Layout.displayName = 'Layout'
 Content.displayName = 'Content'
 Footer.displayName = 'Footer'
 Sidebar.displayName = 'Sidebar'
+Wrapper.displayName = 'Layout'
 
 Layout.Header = Header
 Layout.Content = Content
 Layout.Footer = Footer
 Layout.Sidebar = Sidebar
+Layout.Wrapper = Wrapper
 
 export default Layout

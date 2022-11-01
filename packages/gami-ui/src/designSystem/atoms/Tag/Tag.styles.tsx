@@ -32,3 +32,15 @@ export const BallMarker = styled.span<{ $background?: string }>`
 
   background: ${({ $background }) => $background};
 `
+
+export const TagGroup = styled.div<{ $gap: string }>`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: min-content;
+  gap: ${({ $gap }) => $gap};
+`
+
+export const TagSize = styled.span`
+  color: ${defaultTheme.light.neutral[300]};
+`

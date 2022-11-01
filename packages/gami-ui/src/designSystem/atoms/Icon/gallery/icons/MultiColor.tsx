@@ -1,6 +1,14 @@
 import React from 'react'
 
 export const MultiColor = (color = '#7f9cf5') => ({
+  plus: {
+    viewBox: '0 0 24 24',
+    svg: (
+      <>
+        <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z" fill={color} />
+      </>
+    ),
+  },
   mark: {
     viewBox: '0 0 48 48',
     svg: (

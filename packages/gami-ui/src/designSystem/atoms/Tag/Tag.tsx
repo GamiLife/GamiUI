@@ -4,6 +4,7 @@ import useCssHandle from 'hooks/useCssHandle'
 import React from 'react'
 import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
 import { IGeneralProps } from '../../../core/domain/interfaces/IGeneralProps'
+import { Group } from './Group'
 import * as S from './Tag.styles'
 
 type TGenericStylesTag = Omit<IGeneralProps, 'size'>
@@ -62,10 +63,12 @@ const defaultProps = {
   rounded: 'lg',
 }
 
+Tag.Group = Group
 Tag.displayName = 'Tag'
 
 type TagComponent<P> = React.NamedExoticComponent<P> & {
   defaultProps: P
+  Group: typeof Group
 }
 
 export default withDefaults(Tag, defaultProps) as TagComponent<ITag>

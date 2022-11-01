@@ -128,23 +128,69 @@ const storiesComponent = [
                 >
                   <Container padding="1rem">This is my header</Container>
                 </Layout.Header>
-                <Layout.Sidebar
-                  style={{ background: defaultTheme.light.primary.hawkesBlue }}
-                >
-                  <Container padding="1rem">This is my sidebar</Container>
-                </Layout.Sidebar>
-                <Layout.Content
-                  style={{
-                    background: defaultTheme.light.primary.mediumPurple,
-                  }}
-                >
-                  <Container padding="1rem">This is my content</Container>
-                </Layout.Content>
+                <Layout.Wrapper>
+                  <Layout.Sidebar
+                    style={{
+                      background: defaultTheme.light.primary.hawkesBlue,
+                    }}
+                  >
+                    <Container padding="1rem">This is my sidebar</Container>
+                  </Layout.Sidebar>
+                  <Layout.Content
+                    style={{
+                      background: defaultTheme.light.primary.mediumPurple,
+                    }}
+                  >
+                    <Container padding="1rem">This is my content</Container>
+                  </Layout.Content>
+                </Layout.Wrapper>
                 <Layout.Footer
                   style={{ background: defaultTheme.light.primary.selago }}
                 >
                   <Container padding="1rem">This is my footer</Container>
                 </Layout.Footer>
+              </Fragment>
+            ),
+          },
+        ],
+        field: 'children',
+      },
+    },
+  },
+
+  {
+    storyName: 'WithoutFooter',
+    self: {
+      args: {
+        minHeight: '300px',
+      },
+      variants: {
+        examples: [
+          {
+            label: 'Basic',
+            value: (
+              <Fragment>
+                <Layout.Header
+                  style={{ background: defaultTheme.light.primary.jordyBlue }}
+                >
+                  <Container padding="1rem">This is my header</Container>
+                </Layout.Header>
+                <Layout.Wrapper>
+                  <Layout.Sidebar
+                    style={{
+                      background: defaultTheme.light.primary.hawkesBlue,
+                    }}
+                  >
+                    <Container padding="1rem">This is my sidebar</Container>
+                  </Layout.Sidebar>
+                  <Layout.Content
+                    style={{
+                      background: defaultTheme.light.primary.mediumPurple,
+                    }}
+                  >
+                    <Container padding="1rem">This is my content</Container>
+                  </Layout.Content>
+                </Layout.Wrapper>
               </Fragment>
             ),
           },
