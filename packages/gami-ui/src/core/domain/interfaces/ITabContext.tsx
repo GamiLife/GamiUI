@@ -1,4 +1,4 @@
-import { ITabSelected } from "context/TabProvider"
+import { ITabSelected } from 'context/TabProvider'
 
 export interface ITabInitialState {
   tabIdSelected: string

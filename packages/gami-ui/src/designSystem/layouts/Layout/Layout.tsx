@@ -1,6 +1,6 @@
 import { cls } from 'core/utils/cls'
 import useCssHandle from 'hooks/useCssHandle'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 import * as S from './Layout.styles'
 
 export type TLayout = 'header' | 'main' | 'sidebar' | 'footer' | 'wrapper'
@@ -98,8 +98,6 @@ const Layout = ({
   height = '100%',
   minHeight = '100vh',
 }: ILayout) => {
-  const [gridTemplate, setGridTemplate] = useState('')
-
   const { handles } = useCssHandle({
     classes: {
       wrapper: ['wrapper'],
@@ -142,12 +140,13 @@ const Layout = ({
 
   const getLayoutAreaName = (child: React.ReactNode): TLayout | null => {
     if (!React.isValidElement(child)) return null
+    const type = (child.type as any)?.__emotion_base ?? child.type
 
-    if (child.type === Sidebar) return 'sidebar'
-    if (child.type === Header) return 'header'
-    if (child.type === Content) return 'main'
-    if (child.type === Footer) return 'footer'
-    if (child.type === Wrapper) return 'wrapper'
+    if (type === Sidebar) return 'sidebar'
+    if (type === Header) return 'header'
+    if (type === Content) return 'main'
+    if (type === Footer) return 'footer'
+    if (type === Wrapper) return 'wrapper'
 
     return null
   }
@@ -227,10 +226,7 @@ const Layout = ({
     return matrixString
   }
 
-  useEffect(() => {
-    const gridTemplateStr = makeGridLayouts()
-    setGridTemplate(gridTemplateStr)
-  }, [])
+  const gridTemplate = makeGridLayouts()
 
   return (
     <S.Layout

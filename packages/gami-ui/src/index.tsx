@@ -76,6 +76,8 @@ export {
 export { default as Menu } from './designSystem/molecules/Menu'
 export { default as List } from './designSystem/molecules/List'
 export { default as Table } from './designSystem/molecules/Table'
+export { default as Tab } from './designSystem/molecules/Tab'
+export { default as Card } from './designSystem/molecules/Card'
 
 // Styled
 export {
