@@ -20,6 +20,8 @@ export const Card = InheritGlobalStylesComponent(
     flex-direction: column;
     overflow: hidden;
     min-height: min-content;
+
+    background-color: white;
   `
 )
 
