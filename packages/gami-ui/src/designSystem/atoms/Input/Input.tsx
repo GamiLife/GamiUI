@@ -1,5 +1,5 @@
 import { cls } from 'core/utils/cls'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
 import { IGeneralProps } from '../../../core/domain/interfaces/IGeneralProps'
 import * as S from './Input.styles'
@@ -55,7 +55,7 @@ const Input = ({
   readOnly = false,
   autoComplete = 'off',
   type = 'input',
-  positionPrefix = 'left',
+  positionPrefix,
   prefix = null,
   name = 'gamiUI',
   value,
@@ -77,9 +77,10 @@ const Input = ({
       })}
       {...getGenericPropStyles(genericsProps)}
     >
-      {prefix && <Fragment>{prefix}</Fragment>}
+      {prefix && <S.PrefixContainer>{prefix}</S.PrefixContainer>}
       {
         <S.Input
+          className={cls('input')}
           readOnly={readOnly}
           autoComplete={autoComplete}
           type={type}

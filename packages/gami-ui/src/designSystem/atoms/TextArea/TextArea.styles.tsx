@@ -25,7 +25,8 @@ export const TextArea = InheritGlobalStylesComponent(
     max-height: 225px;
 
     margin: ${spacing.margin.none};
-    padding: ${spacing.padding.md};
+    padding-top: ${spacing.padding.md};
+    padding-bottom: ${spacing.padding.md};
 
     ${mixinInput('light')};
   `

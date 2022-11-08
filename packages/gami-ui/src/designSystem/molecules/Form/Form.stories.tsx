@@ -9,7 +9,6 @@ import TextArea from '../../atoms/TextArea'
 import Select from '../../atoms/Select'
 import Radio from '../../atoms/Radio'
 import Button from '../../atoms/Button'
-import Icon from '../../atoms/Icon'
 
 export default {
   title: 'Molecules/Form',
@@ -80,13 +79,7 @@ export const Basic = () => (
       </Radio>
     </Form.Item>
     <Form.Item name="submit">
-      <Button
-        width="fit"
-        type="submit"
-        variant="primary"
-        rounded="lg"
-        preffix={<Icon color="white" name="send" />}
-      >
+      <Button width="full" type="submit" variant="primary" rounded="sm">
         Submit
       </Button>
     </Form.Item>

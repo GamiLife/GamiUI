@@ -16,7 +16,6 @@ export const Basic = () => {
   const [value, setValue] = useState('one')
 
   const changeValue = (value: any) => {
-    console.log(value)
     setValue(value)
   }
 
@@ -38,7 +37,6 @@ export const Multiple = () => {
   const [value, setValue] = useState('one')
 
   const changeValue = (value: any) => {
-    console.log(value)
     setValue(value)
   }
 

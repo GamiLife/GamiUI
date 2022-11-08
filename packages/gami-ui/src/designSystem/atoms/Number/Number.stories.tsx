@@ -37,4 +37,5 @@ Basic.args = {
   width: 'auto',
   height: 'auto',
   prefix: <Icon name="phone" />,
+  positionPrefix: 'left',
 }

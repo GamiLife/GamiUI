@@ -7,10 +7,22 @@ import {
   TextAlignType,
   WidthType,
 } from 'core/domain/types'
+import Container from 'designSystem/layouts/Container'
 import { mixinFlexVariants } from 'styles/mixins/flex'
 import { mixinInput } from 'styles/mixins/input'
-import { defaultTheme } from 'styles/tokens'
+import { defaultTheme, spacing } from 'styles/tokens'
 import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
+
+export const Input = styled.input`
+  padding-top: ${spacing.padding.md};
+  padding-bottom: ${spacing.padding.xs};
+
+  ${mixinInput('light')}
+`
+
+export const PrefixContainer = styled(Container)`
+  margin-bottom: 5px;
+`
 
 export const InputBox = InheritGlobalStylesComponent(
   styled.div<{
@@ -23,7 +35,7 @@ export const InputBox = InheritGlobalStylesComponent(
   }>`
     overflow: hidden;
     background: ${defaultTheme.light.neutral[800]};
-    ${mixinFlexVariants({ alignItems: 'center' })}
+    ${mixinFlexVariants({ alignItems: 'flex-end' })}
     max-width: 300px;
 
     input[type='password'] {
@@ -33,16 +45,18 @@ export const InputBox = InheritGlobalStylesComponent(
     &.positionPrefixRight {
       flex-direction: row-reverse;
       justify-content: space-between;
-      padding: 0 1rem 0 0;
+
+      input {
+        margin-right: ${spacing.padding.sm};
+      }
     }
 
     &.positionPrefixLeft {
       flex-direction: row;
-      padding: 0 0 0 1rem;
+
+      input {
+        margin-left: ${spacing.padding.sm};
+      }
     }
   `
 )
-
-export const Input = styled.input`
-  ${mixinInput('light')}
-`

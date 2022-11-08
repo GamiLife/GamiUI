@@ -45,4 +45,5 @@ IconInput.args = {
   width: 'auto',
   height: 'auto',
   prefix: <Icon name="user" />,
+  positionPrefix: 'left',
 }

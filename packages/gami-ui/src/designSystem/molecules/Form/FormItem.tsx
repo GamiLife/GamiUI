@@ -15,6 +15,7 @@ import useCloneElement from 'hooks/useCloneElements'
 import * as S from './Form.styles'
 
 import FormError from './FormError'
+import { cls } from 'core/utils/cls'
 
 export type TRulesType = 'required' | 'email' | 'maxNumber' | 'minNumber'
 
@@ -36,6 +37,7 @@ const FormItem = ({ label = '', name, children }: IFormItem) => {
 
   const handleChangeValue = (value: any): void => setFormValues({ name, value })
 
+  const { yupErrors } = useFormStore()
   const { validatorChildrenLength, childrenWithProps } = useCloneElement({
     children,
     propsElement: {
@@ -54,8 +56,14 @@ const FormItem = ({ label = '', name, children }: IFormItem) => {
     return null
   }
 
+  const hasErrors = yupErrors?.[name]
+
   return (
-    <S.FormItem>
+    <S.FormItem
+      className={cls('test', {
+        error: !!hasErrors,
+      })}
+    >
       {label != '' && (
         <S.FormLabel
           fontWeight="semibold"
