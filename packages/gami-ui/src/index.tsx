@@ -45,6 +45,11 @@ export {
   default as Collapse,
   argTypes as docsCollapse,
 } from './designSystem/atoms/Collapse'
+export { default as Input } from './designSystem/atoms/Input'
+export { default as Password } from './designSystem/atoms/Password'
+export { default as Number } from './designSystem/atoms/Number'
+export { default as Radio } from './designSystem/atoms/Radio'
+export { default as Select } from './designSystem/atoms/Select'
 
 //Layouts
 export { default as Col, argTypes as docsCol } from './designSystem/layouts/Col'
@@ -78,6 +83,8 @@ export { default as List } from './designSystem/molecules/List'
 export { default as Table } from './designSystem/molecules/Table'
 export { default as Tab } from './designSystem/molecules/Tab'
 export { default as Card } from './designSystem/molecules/Card'
+export { default as Form } from './designSystem//molecules/Form'
+export { default as Modal } from './designSystem//molecules/Modal'
 
 // Styled
 export {
