@@ -18,7 +18,9 @@ export const PaginationBody = styled.div`
 
 export const Arrow = styled(Button)``
 
-export const PageItem = styled(Button)``
+export const PageItem = styled(Button)`
+  max-width: 39px;
+`
 
 export const PageSpan = styled.span<{ $color?: string }>`
   ${({ $color }) =>

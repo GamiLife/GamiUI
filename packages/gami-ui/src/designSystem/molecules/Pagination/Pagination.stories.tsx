@@ -11,4 +11,6 @@ export default {
 } as Meta
 
 export const Basic = (args: any) => <Pagination {...args} />
-Basic.args = {}
+Basic.args = {
+  numberPages: 7,
+}
