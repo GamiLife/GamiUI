@@ -11,7 +11,6 @@ export const TableContainer = InheritGlobalStylesComponent(styled.div`
 
 export const TableFooter = styled.tfoot`
   height: 2.5rem;
-  
 `
 
 export const Table = styled.table`

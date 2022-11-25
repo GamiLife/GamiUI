@@ -45,7 +45,7 @@ const useTable = ({
 
     numberPages,
     pageIndex,
-    
+
     nextPage,
     prevPage,
     gotoPage,
