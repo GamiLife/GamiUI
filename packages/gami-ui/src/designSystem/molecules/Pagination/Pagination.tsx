@@ -2,31 +2,65 @@ import Icon from 'designSystem/atoms/Icon'
 import React, { useState } from 'react'
 import * as S from './Pagination.styles'
 
+export type TOnChange = (page: number) => void
+
 export interface IPagination {
   numberPages: number
   initialPage?: number
+  onChangePage?: TOnChange
 }
 
-const Pagination = ({ numberPages = 3, initialPage = 0 }: IPagination) => {
-  const [pageSelected, setPageSelected] = useState(initialPage)
+const Pagination = ({
+  numberPages = 3,
+  initialPage = 0,
+  onChangePage,
+}: IPagination) => {
   const [pageIndex, setPageIndex] = useState(initialPage)
 
-  const canPreviousPage = pageIndex > 0
+  const [pageSelected, setPageSelected] = useState(initialPage)
+  const [textPageSelected, setTextPageSelected] = useState(initialPage)
 
+  const canPreviousPage = pageIndex > 0
   const canNextPage = pageIndex + 1 < numberPages
 
-  const nextPage = () =>
-    canNextPage && setPageIndex((prevPageIndex) => prevPageIndex + 1)
+  const nextPage = () => {
+    if (!canNextPage) return
 
-  const prevPage = () =>
-    canPreviousPage && setPageIndex((prevPageIndex) => prevPageIndex - 1)
+    setPageIndex((prevPageIndex) => {
+      const newPage = prevPageIndex + 1
+      onChangePage?.(newPage)
 
-  const gotoPage = (page: number, index: number) => {
+      return newPage
+    })
+  }
+
+  const prevPage = () => {
+    if (!canPreviousPage) return
+    setPageIndex((prevPageIndex) => {
+      const newPage = prevPageIndex - 1
+      onChangePage?.(newPage)
+
+      return newPage
+    })
+  }
+
+  const gotoPage = (page: number) => {
+    onChangePage?.(page)
     setPageIndex(page)
-    setPageSelected(index)
   }
 
   const getCurrentPosition = () => pageSelected * (39 + 4)
+
+  const computePageSelected = (arrayOfPageComputed: (string | number)[]) => {
+    arrayOfPageComputed.forEach((chunk, index) => {
+      if (chunk == pageIndex && index != pageSelected) {
+        setPageSelected(Number(index))
+      }
+      if (chunk == pageIndex && chunk != textPageSelected) {
+        setTextPageSelected(Number(chunk))
+      }
+    })
+  }
 
   const getPages = (
     defaultArrayOfPages: (number | string)[],
@@ -81,6 +115,8 @@ const Pagination = ({ numberPages = 3, initialPage = 0 }: IPagination) => {
       [] as (number | string)[]
     )
 
+    computePageSelected(arrayWithCuts)
+
     return arrayWithCuts
   }
 
@@ -88,6 +124,8 @@ const Pagination = ({ numberPages = 3, initialPage = 0 }: IPagination) => {
     const defaultArrayOfPages = Array.from(Array(numberPages).keys())
 
     if (numberPages <= 5) {
+      computePageSelected(defaultArrayOfPages)
+
       return defaultArrayOfPages
     }
 
@@ -110,7 +148,7 @@ const Pagination = ({ numberPages = 3, initialPage = 0 }: IPagination) => {
           shadow="secondary"
           variant="secondary"
         >
-          <S.PageSpan $color="white">{pageSelected + 1}</S.PageSpan>
+          <S.PageSpan $color="white">{textPageSelected + 1}</S.PageSpan>
         </S.PageSelected>
 
         {arrayPageItems.map((page, index) => (
@@ -119,7 +157,7 @@ const Pagination = ({ numberPages = 3, initialPage = 0 }: IPagination) => {
             flat
             onClick={() =>
               !['middle', 'before', 'after'].includes(`${page}`) &&
-              gotoPage(Number(page), index)
+              gotoPage(Number(page))
             }
             key={index}
           >

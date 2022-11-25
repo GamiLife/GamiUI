@@ -12,5 +12,15 @@ export default {
 
 export const Basic = (args: any) => <Pagination {...args} />
 Basic.args = {
+  numberPages: 5,
+}
+
+export const WithSeven = (args: any) => <Pagination {...args} />
+WithSeven.args = {
   numberPages: 7,
+}
+
+export const WithTen = (args: any) => <Pagination {...args} />
+WithTen.args = {
+  numberPages: 10,
 }

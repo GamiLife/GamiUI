@@ -85,6 +85,7 @@ export { default as Tab } from './designSystem/molecules/Tab'
 export { default as Card } from './designSystem/molecules/Card'
 export { default as Form } from './designSystem//molecules/Form'
 export { default as Modal } from './designSystem//molecules/Modal'
+export { default as Pagination } from './designSystem/molecules/Pagination'
 
 // Styled
 export {

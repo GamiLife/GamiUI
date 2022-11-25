@@ -9,6 +9,8 @@ import { Body } from './Body'
 import { Column } from './Column'
 import { Row } from './Row'
 import { Cell } from './Cell'
+import { TPagination } from './TPagination'
+import { Footer } from './Footer'
 
 export interface IColumn {
   title: string
@@ -37,5 +39,7 @@ Table.Body = Body
 Table.Column = Column
 Table.Row = Row
 Table.Cell = Cell
+Table.Pagination = TPagination
+Table.Footer = Footer
 
 export default Table

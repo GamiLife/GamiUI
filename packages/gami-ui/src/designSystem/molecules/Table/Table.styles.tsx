@@ -9,6 +9,11 @@ export const TableContainer = InheritGlobalStylesComponent(styled.div`
   ${mixinScroll('light')}
 `)
 
+export const TableFooter = styled.tfoot`
+  height: 2.5rem;
+  
+`
+
 export const Table = styled.table`
   table-layout: fixed;
   border-collapse: separate;

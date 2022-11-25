@@ -5,6 +5,7 @@ import Button from 'designSystem/atoms/Button'
 export const Pagination = styled.nav`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 `
 
