@@ -105,12 +105,12 @@ export const WithPagination = () => {
 
   return (
     <Table>
-      <Table.Header columns={columns}>
+      <Table.Header columns={columns} background={'#fbfbfb'}>
         {(column) => <Table.Column as="th">{column.title}</Table.Column>}
       </Table.Header>
       <Table.Body items={items}>
         {(item, index) => (
-          <Table.Row item={item} key={index}>
+          <Table.Row item={item} key={index} background={'#fbfbfb'}>
             {([cellKey, cellValue], index) => (
               <Table.Cell
                 key={index}

@@ -9,7 +9,7 @@ export interface IFooter {
 export const Footer = ({ children }: IFooter) => {
   return (
     <S.TableFooter>
-      <Row>{children}</Row>
+      <Row background="transparent">{children}</Row>
     </S.TableFooter>
   )
 }

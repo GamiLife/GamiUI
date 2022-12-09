@@ -16,19 +16,20 @@ export const TableFooter = styled.tfoot`
 export const Table = styled.table`
   table-layout: fixed;
   border-collapse: separate;
-  border-spacing: 0 15px;
+  border-spacing: 0 10px;
   text-align: left;
   width: 100%;
 `
 
-export const TableHeader = styled.thead`
-  background-color: ${defaultTheme.light.neutral[700]};
-  color: ${defaultTheme.light.neutral[0]};
+export const TableHeader = styled.thead<{ $background: string }>`
+  color: ${defaultTheme.light.neutral[100]};
 `
 
 export const TableBody = styled.tbody``
 
-export const TableRow = styled.tr``
+export const TableRow = styled.tr<{ $background: string }>`
+  background-color: ${({ $background }) => $background};
+`
 
 export const TableColumn = styled.td`
   ${mediaQuery('lg')} {
@@ -36,14 +37,12 @@ export const TableColumn = styled.td`
   }
   padding: 10px;
 
-  &.header {
-    &:first-child {
-      border-top-left-radius: 0.6em;
-      border-bottom-left-radius: 0.6em;
-    }
-    &:last-child {
-      border-top-right-radius: 0.6em;
-      border-bottom-right-radius: 0.6em;
-    }
+  &:first-child {
+    border-top-left-radius: 0.6em;
+    border-bottom-left-radius: 0.6em;
+  }
+  &:last-child {
+    border-top-right-radius: 0.6em;
+    border-bottom-right-radius: 0.6em;
   }
 `
