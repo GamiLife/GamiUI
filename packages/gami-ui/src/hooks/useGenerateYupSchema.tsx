@@ -80,7 +80,9 @@ const useGenerateYupSchema = ({ children }: IUseGenerateYupSchema) => {
 
     React.Children.map(children, (child: React.ReactNode) => {
       const childrenCast = child as React.ReactElement
-      const childrenTypeOfChildren = childrenCast.props.children.type
+      const childrenTypeOfChildren = childrenCast.props.children?.type
+
+      if (!childrenTypeOfChildren) return
 
       const { rules, name } = childrenCast.props as IFormItem
 

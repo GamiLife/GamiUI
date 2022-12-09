@@ -9,6 +9,7 @@ import TextArea from '../../atoms/TextArea'
 import Select from '../../atoms/Select'
 import Radio from '../../atoms/Radio'
 import Button from '../../atoms/Button'
+import Container from '../../layouts/Container'
 
 export default {
   title: 'Molecules/Form',
@@ -85,3 +86,41 @@ export const Basic = () => (
     </Form.Item>
   </Form>
 )
+
+export const WithUseForm = () => {
+  const { form } = Form.useForm()
+
+  const handleSubmit = () => {
+    form.validate()
+  }
+
+  return (
+    <Container>
+      <Form
+        form={form}
+        onSubmitForm={(values: any) => {
+          console.log(values)
+        }}
+      >
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Nombres"
+          name="names"
+        >
+          <Input placeholder="Titulo" />
+        </Form.Item>
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Contraseña"
+          name="password"
+        >
+          <Input placeholder="Descripcion" />
+        </Form.Item>
+      </Form>
+
+      <Container>
+        <Button onClick={handleSubmit}>Submit</Button>
+      </Container>
+    </Container>
+  )
+}

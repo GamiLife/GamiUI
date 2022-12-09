@@ -9,7 +9,7 @@ import { IFormProps } from './Form'
 
 import * as S from './Form.styles'
 
-const FormContent = ({ children, onSubmitForm, ...args }: IFormProps) => {
+const FormContent = ({ children, onSubmitForm, form, ...args }: IFormProps) => {
   const { yupSchema, formValue, setCallbacks, setYupSchema, onClickSubmit } =
     useFormStore()
   const { buildingYupSchema } = useGenerateYupSchema({ children })
@@ -27,15 +27,28 @@ const FormContent = ({ children, onSubmitForm, ...args }: IFormProps) => {
     setYupSchema(yupSchema)
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault()
 
-    const error = validate(formValue)
+    const error = validate(formValue ?? {})
 
-    if (error) return
+    if (error) return false
 
     onClickSubmit(formValue)
+    return true
   }
+
+  useEffect(() => {
+    form?.update(formValue)
+  }, [formValue])
+
+  //TODO: Improve this validation
+  useEffect(() => {
+    if (!form?.isValidating) return
+    const isValid = handleSubmit()
+    form.updateValid(isValid)
+    form.completeValidate()
+  }, [form?.isValidating])
 
   return (
     <S.Form onSubmit={handleSubmit} {...args}>
