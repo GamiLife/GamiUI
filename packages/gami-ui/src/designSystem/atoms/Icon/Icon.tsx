@@ -52,7 +52,7 @@ const Icon = ({
 
   useEffect(() => {
     setIcon(IconsPack(color)?.[name])
-  }, [name])
+  }, [name, color])
 
   return (
     <S.Icon
