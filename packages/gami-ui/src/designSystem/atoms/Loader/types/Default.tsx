@@ -42,7 +42,10 @@ export const Default = ({ background }: ILoaderType) => {
   const items = 3
 
   return (
-    <S.Loader $styles={defaultLoader(background)}>
+    <S.Loader
+      className={cls('loader', 'loader__default')}
+      $styles={defaultLoader(background)}
+    >
       {Array.from(new Array(items)).map((_, index: number) => (
         <S.Item className={cls('loader__item')} key={index} />
       ))}

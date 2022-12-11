@@ -10,19 +10,25 @@ export interface IWrapper {
   isLoading: boolean
   loaderNode: React.ReactNode
   children: React.ReactNode
+  className?: string
+  as?: keyof JSX.IntrinsicElements
 }
 
 export const Wrapper = ({
-  behavior = 'none',
   children,
   loaderNode,
   isLoading,
+  className,
+  behavior = 'none',
   minHeight = 'none',
+  as = 'div',
 }: IWrapper) => {
   const none = () => (
     <React.Fragment>
       {isLoading ? (
-        <S.Wrapper $minHeight={minHeight}>{loaderNode}</S.Wrapper>
+        <S.Wrapper className={className} $minHeight={minHeight} as={as}>
+          {loaderNode}
+        </S.Wrapper>
       ) : (
         children
       )}
@@ -31,7 +37,7 @@ export const Wrapper = ({
 
   const glass = () => (
     <React.Fragment>
-      <S.FragmentLoader $minHeight={minHeight}>
+      <S.FragmentLoader $minHeight={minHeight} className={className} as={as}>
         {children}
         {isLoading && (
           <S.Wrapper className={cls('absolute')}>{loaderNode}</S.Wrapper>

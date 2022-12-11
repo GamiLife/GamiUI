@@ -20,9 +20,6 @@ export const Wrapper = styled.div<{ $minHeight?: string }>`
   min-height: ${({ $minHeight }) => $minHeight};
 
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(3px);
@@ -34,6 +31,10 @@ export const Wrapper = styled.div<{ $minHeight?: string }>`
     position: absolute;
     top: 0px;
     left: 0px;
+  }
+
+  .loader {
+    left: 45%;
   }
 `
 

@@ -106,7 +106,10 @@ export const Spinner = ({ background }: ILoaderType) => {
   const items = 8
 
   return (
-    <S.Loader $styles={SpinnerLoader(background)}>
+    <S.Loader
+      className={cls('loader', 'loader__spinner')}
+      $styles={SpinnerLoader(background)}
+    >
       {Array.from(new Array(items)).map((_, index: number) => (
         <S.Item className={cls('loader__item')} key={index} />
       ))}

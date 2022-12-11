@@ -67,7 +67,10 @@ export const Points = ({ background }: ILoaderType) => {
   const items = 4
 
   return (
-    <S.Loader $styles={pointsLoader(background)}>
+    <S.Loader
+      className={cls('loader', 'loader__points')}
+      $styles={pointsLoader(background)}
+    >
       {Array.from(new Array(items)).map((_, index: number) => (
         <S.Item className={cls('loader__item')} key={index} />
       ))}
