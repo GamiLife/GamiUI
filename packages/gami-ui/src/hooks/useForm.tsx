@@ -15,10 +15,14 @@ export type IUseFormValues = {
   form: TFormValues
 }
 
-export const useForm = (): IUseFormValues => {
+export interface IUseForm {
+  defaultValue?: IDynamicObjectWithField | null
+}
+
+export const useForm = ({ defaultValue }: IUseForm): IUseFormValues => {
   const [isValid, setIsValid] = useState(false)
   const [isValidating, setIsValidating] = useState(false)
-  const [form, setForm] = useState<TFormValues['value']>(null)
+  const [form, setForm] = useState<TFormValues['value']>(defaultValue ?? null)
 
   const validate = () => setIsValidating(true)
 

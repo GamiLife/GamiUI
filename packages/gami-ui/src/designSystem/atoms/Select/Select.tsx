@@ -11,7 +11,7 @@ export interface IOptions {
 
 type TSelectValue = OptionTypeBase[] | OptionTypeBase | null | undefined
 
-export interface ISelect extends IInput {
+export interface ISelect extends Omit<IInput, 'value'> {
   /**
    * Children Element
    */
@@ -27,14 +27,14 @@ export interface ISelect extends IInput {
   /**
    * isClearable Option
    */
-  selectValue?: TSelectValue
+  value?: TSelectValue
 }
 
 const Select = ({
   options,
   onChangeFormItem,
   placeholder,
-  selectValue,
+  value,
   isMultiple = false,
   isClearable = false,
 }: ISelect) => {
@@ -44,7 +44,7 @@ const Select = ({
       isMulti={isMultiple}
       classNamePrefix="Select"
       placeholder={placeholder}
-      value={selectValue}
+      value={value}
       onChange={onChangeFormItem}
       options={options}
     />

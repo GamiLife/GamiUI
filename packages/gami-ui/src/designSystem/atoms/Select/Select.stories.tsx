@@ -13,7 +13,7 @@ export default {
 } as Meta
 
 export const Basic = () => {
-  const [value, setValue] = useState('one')
+  const [value, setValue] = useState({ value: 'chocolate', label: 'Chocolate' })
 
   const changeValue = (value: any) => {
     setValue(value)
@@ -34,7 +34,7 @@ export const Basic = () => {
 }
 
 export const Multiple = () => {
-  const [value, setValue] = useState('one')
+  const [value, setValue] = useState()
 
   const changeValue = (value: any) => {
     setValue(value)

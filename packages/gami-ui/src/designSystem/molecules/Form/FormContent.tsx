@@ -10,8 +10,14 @@ import { IFormProps } from './Form'
 import * as S from './Form.styles'
 
 const FormContent = ({ children, onSubmitForm, form, ...args }: IFormProps) => {
-  const { yupSchema, formValue, setCallbacks, setYupSchema, onClickSubmit } =
-    useFormStore()
+  const {
+    yupSchema,
+    formValue,
+    setCallbacks,
+    setYupSchema,
+    onClickSubmit,
+    setInitialFormValues,
+  } = useFormStore()
   const { buildingYupSchema } = useGenerateYupSchema({ children })
 
   const { validate } = useYupValidation({ schema: yupSchema as TYupSchema })
@@ -41,6 +47,11 @@ const FormContent = ({ children, onSubmitForm, form, ...args }: IFormProps) => {
   useEffect(() => {
     form?.update(formValue)
   }, [formValue])
+
+  useEffect(() => {
+    if (!form?.value) return
+    setInitialFormValues(form.value)
+  }, [])
 
   //TODO: Improve this validation
   useEffect(() => {

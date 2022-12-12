@@ -29,7 +29,7 @@ export const Basic = () => (
       label="Nombres"
       name="names"
     >
-      <Input placeholder="Ingresa tus nombres" />
+      <Input placeholder="Ingresa tus nombres" value="test2" />
     </Form.Item>
     <Form.Item
       rules={[{ type: 'required', message: 'Campo requerido' }]}
@@ -88,7 +88,13 @@ export const Basic = () => (
 )
 
 export const WithUseForm = () => {
-  const { form } = Form.useForm()
+  const { form } = Form.useForm({
+    defaultValue: {
+      names: 'test',
+      password: 'description',
+      country: { value: 'chocolate', label: 'Chocolate' },
+    },
+  })
 
   const handleSubmit = () => {
     form.validate()
@@ -115,6 +121,20 @@ export const WithUseForm = () => {
           name="password"
         >
           <Input placeholder="Descripcion" />
+        </Form.Item>
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Elige un pais"
+          name="country"
+        >
+          <Select
+            placeholder="Type your option"
+            options={[
+              { value: 'chocolate', label: 'Chocolate' },
+              { value: 'strawberry', label: 'Strawberry' },
+              { value: 'vanilla', label: 'Vanilla' },
+            ]}
+          />
         </Form.Item>
       </Form>
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Meta } from '@storybook/react'
 
 import Input from '.'
@@ -31,19 +31,37 @@ export default {
   },
 } as Meta
 
-export const BasicInput = (args: any) => <Input {...args} />
-BasicInput.args = {
-  placeholder: 'Type your name',
-  width: 'auto',
-  height: 'auto',
-  prefix: null,
+export const BasicInput = () => {
+  const [value, setValue] = useState('test')
+
+  const handleChange = (newValue: string) => setValue(newValue)
+
+  return (
+    <Input
+      placeholder="Type your name"
+      width="auto"
+      height="auto"
+      prefix={null}
+      value={value}
+      onChangeFormItem={handleChange}
+    />
+  )
 }
 
-export const IconInput = (args: any) => <Input {...args} />
-IconInput.args = {
-  placeholder: 'Type your name',
-  width: 'auto',
-  height: 'auto',
-  prefix: <Icon name="user" />,
-  positionPrefix: 'left',
+export const IconInput = () => {
+  const [value, setValue] = useState('')
+
+  const handleChange = (newValue: string) => setValue(newValue)
+
+  return (
+    <Input
+      placeholder="Type your name"
+      width="auto"
+      height="auto"
+      prefix={<Icon name="user" />}
+      value={value}
+      onChangeFormItem={handleChange}
+      positionPrefix="left"
+    />
+  )
 }
