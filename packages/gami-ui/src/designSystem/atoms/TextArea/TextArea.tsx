@@ -46,6 +46,7 @@ const TextArea = ({
   placeholder = '',
   cols = 5,
   rows = 5,
+  value,
   ...genericsProps
 }: ITextArea) => {
   const handleChangeOnTextArea = (
@@ -61,6 +62,7 @@ const TextArea = ({
       placeholder={placeholder}
       cols={cols}
       rows={rows}
+      value={value}
       onChange={handleChangeOnTextArea}
       {...getGenericPropStyles(genericsProps)}
     />

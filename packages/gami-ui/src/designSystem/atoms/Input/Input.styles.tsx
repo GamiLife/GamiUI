@@ -34,9 +34,12 @@ export const InputBox = InheritGlobalStylesComponent(
     $textAlign?: TextAlignType
   }>`
     overflow: hidden;
-    background: transparent;
+    background: white;
     ${mixinFlexVariants({ alignItems: 'flex-end' })}
     max-width: 300px;
+
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+    border-radius: 0.5em;
 
     input[type='password'] {
       font-family: system-ui !important;
@@ -45,6 +48,7 @@ export const InputBox = InheritGlobalStylesComponent(
     &.positionPrefixRight {
       flex-direction: row-reverse;
       justify-content: space-between;
+      padding-right: 0.5rem;
 
       input {
         margin-right: ${spacing.padding.sm};
@@ -53,6 +57,7 @@ export const InputBox = InheritGlobalStylesComponent(
 
     &.positionPrefixLeft {
       flex-direction: row;
+      padding-left: 0.5rem;
 
       input {
         margin-left: ${spacing.padding.sm};

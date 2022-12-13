@@ -24,6 +24,9 @@ export const TextArea = InheritGlobalStylesComponent(
     min-height: 75px;
     max-height: 225px;
 
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+    border-radius: 0.5em;
+
     margin: ${spacing.margin.none};
     padding-top: ${spacing.padding.md};
     padding-bottom: ${spacing.padding.md};

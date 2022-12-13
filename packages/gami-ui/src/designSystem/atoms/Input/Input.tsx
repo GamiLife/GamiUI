@@ -71,11 +71,11 @@ const Input = ({
 
   return (
     <S.InputBox
+      {...getGenericPropStyles(genericsProps)}
       className={cls({
         positionPrefixRight: positionPrefix == 'right',
         positionPrefixLeft: positionPrefix == 'left',
       })}
-      {...getGenericPropStyles(genericsProps)}
     >
       {prefix && <S.PrefixContainer>{prefix}</S.PrefixContainer>}
       {

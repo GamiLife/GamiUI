@@ -8,7 +8,10 @@ export const mixinInput = (themeType: 'light' | 'dark') => css`
 
   width: 100%;
   height: inherit;
-  background-color: transparent;
+
+  background-color: white;
+  padding-left: 0.5rem;
+  padding-bottom: 0.5rem;
 
   &::placeholder {
     color: ${defaultTheme[themeType].neutral[300]};

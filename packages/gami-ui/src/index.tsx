@@ -45,6 +45,7 @@ export {
   default as Collapse,
   argTypes as docsCollapse,
 } from './designSystem/atoms/Collapse'
+export { default as TextArea } from './designSystem/atoms/TextArea'
 export { default as Input } from './designSystem/atoms/Input'
 export { default as Password } from './designSystem/atoms/Password'
 export { default as Number } from './designSystem/atoms/Number'
