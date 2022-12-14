@@ -188,6 +188,7 @@ const Layout = ({
       return item.length > acc ? item.length : acc
     }, 1)
     const cols = maxColSize < 3 ? 3 : maxColSize
+    let hasSide = false
 
     let matrixString = ''
 
@@ -208,6 +209,9 @@ const Layout = ({
       }
 
       const isNotMain = block.includes('header') || block.includes('footer')
+      if (!hasSide) {
+        hasSide = block.includes('sidebar')
+      }
 
       const blockString = block.join(' ')
       const rowString = `'${blockString}' ${
@@ -215,6 +219,12 @@ const Layout = ({
       }`
 
       matrixString += `${rowString} `
+    }
+
+    if (hasSide) {
+      matrixString += ` / auto ${Array.from({ length: cols - 1 }, (_, i) => i)
+        .map(() => '1fr')
+        .join(' ')}`
     }
 
     return matrixString

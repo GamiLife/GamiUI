@@ -1,5 +1,5 @@
 import Icon from 'designSystem/atoms/Icon'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as S from './Pagination.styles'
 
 export type TOnChange = (page: number) => void
@@ -7,6 +7,7 @@ export type TOnChange = (page: number) => void
 export interface IPagination {
   numberPages: number
   initialPage?: number
+  page?: number
   onChangePage?: TOnChange
 }
 
@@ -14,8 +15,16 @@ const Pagination = ({
   numberPages = 3,
   initialPage = 0,
   onChangePage,
+  page,
 }: IPagination) => {
   const [pageIndex, setPageIndex] = useState(initialPage)
+
+  useEffect(() => {
+    if (page === undefined) return
+    if (page < 0) return
+
+    setPageIndex(page)
+  }, [page])
 
   const [pageSelected, setPageSelected] = useState(initialPage)
   const [textPageSelected, setTextPageSelected] = useState(initialPage)
