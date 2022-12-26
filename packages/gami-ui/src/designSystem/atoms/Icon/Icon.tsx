@@ -28,7 +28,7 @@ type IGeneralPropsIcon = Omit<
   'size' | 'width' | 'height' | 'textAlign'
 >
 
-interface IIcon extends IOnlyIcon, IGeneralPropsIcon {}
+export interface IIcon extends IOnlyIcon, IGeneralPropsIcon {}
 
 const Icon = ({
   color = '#7f9cf5',
