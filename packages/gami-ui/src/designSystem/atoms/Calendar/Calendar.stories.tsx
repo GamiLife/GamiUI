@@ -12,3 +12,8 @@ export default {
 
 export const Basic = (args: any) => <Calendar {...args} />
 Basic.args = {}
+
+export const WithDefaultDate = (args: any) => <Calendar {...args} />
+WithDefaultDate.args = {
+  defaultDate: new Date(2022, 10, 12),
+}

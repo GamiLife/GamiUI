@@ -1,13 +1,51 @@
 import { useEffect, useRef, useState } from 'react'
 
-export const useColorPicker = () => {
+export interface IUseColorPicker {
+  colorPicker: string
+}
+
+export const useColorPicker = ({ colorPicker }: IUseColorPicker) => {
   const width = 200
   const height = 200
-  const pickerCircle = { x: 30, y: 50, width: 7, height: 7 }
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const pickerRef = useRef<HTMLCanvasElement | null>(null)
-  const [colorPicked, setColorPicked] = useState(`rgb(0,0,0)`)
+  const [colorPicked, setColorPicked] = useState(colorPicker)
   const [isDnd, setIsDnd] = useState(false)
+
+  const getCtx = (ref: React.MutableRefObject<HTMLCanvasElement | null>) => {
+    const canvas = ref.current
+    if (!canvas) return
+
+    const context = canvas.getContext('2d')
+    return context
+  }
+
+  const getColorByPosition = (x: number, y: number) => {
+    const context = getCtx(canvasRef)
+
+    if (!context) return
+
+    const rgbValues = context.getImageData(x, y, 1, 1)
+    return rgbValues
+  }
+
+  const findPositionByColor = (rgbColorSearch: string) => {
+    for (let x = 0; x <= width; x++) {
+      for (let y = 0; y <= height; y++) {
+        const rgbValues = getColorByPosition(x, y)
+        if (!rgbValues) continue
+
+        const [r, g, b] = rgbValues.data
+        const rgbColor = `rgb(${r},${g},${b})`
+
+        if (rgbColorSearch == rgbColor) {
+          return { x, y }
+        }
+      }
+    }
+
+    return { x: 30, y: 50 }
+  }
 
   const setDimensions = (
     ref: React.MutableRefObject<HTMLCanvasElement | null>
@@ -20,14 +58,6 @@ export const useColorPicker = () => {
 
     ref.current.width = width
     ref.current.height = height
-  }
-
-  const getCtx = (ref: React.MutableRefObject<HTMLCanvasElement | null>) => {
-    const canvas = ref.current
-    if (!canvas) return
-
-    const context = canvas.getContext('2d')
-    return context
   }
 
   const createGradientOnWidth = (context: CanvasRenderingContext2D) => {
@@ -63,28 +93,16 @@ export const useColorPicker = () => {
 
   const createPickerCircle = (
     context: CanvasRenderingContext2D,
-    positions = {
-      x: pickerCircle.x,
-      y: pickerCircle.y,
-    }
+    positions: { x: number; y: number }
   ) => {
     context.beginPath()
     context.arc(positions.x, positions.y, 10, 0, 2 * Math.PI, false)
-    context.fillStyle = 'background'
+    context.fillStyle = 'rgba(255, 255, 255, 0.5)'
     context.fill()
     context.lineWidth = 0.8
 
-    context.strokeStyle = 'white'
+    context.strokeStyle = 'black'
     context.stroke()
-  }
-
-  const getColorByPosition = (x: number, y: number) => {
-    const context = getCtx(canvasRef)
-
-    if (!context) return
-
-    const rgbValues = context.getImageData(x, y, 1, 1)
-    return rgbValues
   }
 
   const getPositionByClick = (
@@ -165,7 +183,9 @@ export const useColorPicker = () => {
     contextCanvas.fillStyle = gradientHeight
     contextCanvas.fillRect(0, 0, width, height)
 
-    createPickerCircle(contextPicker)
+    const positions = findPositionByColor(colorPicker)
+
+    createPickerCircle(contextPicker, positions)
   }
 
   useEffect(() => {

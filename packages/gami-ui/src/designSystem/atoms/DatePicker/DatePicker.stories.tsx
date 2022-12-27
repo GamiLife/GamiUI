@@ -12,3 +12,16 @@ export default {
 
 export const Basic = (args: any) => <DatePicker {...args} />
 Basic.args = {}
+
+export const WithTooltipAbove = (args: any) => (
+  <div>
+    <div style={{ height: '400px', width: '300px', background: 'white' }}></div>
+    <DatePicker {...args} />
+  </div>
+)
+Basic.args = {}
+
+export const WithDefault = (args: any) => <DatePicker {...args} />
+WithDefault.args = {
+  defaultDate: new Date(2022, 10, 12),
+}

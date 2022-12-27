@@ -1,12 +1,23 @@
-import React from 'react'
+import Input from 'designSystem/atoms/Input'
+import React, { useRef, useState } from 'react'
 import * as S from './ColorPicker.styles'
 import { useColorPicker } from './useColorPicker'
+import { usePickerTooltip } from 'hooks/usePickerTooltip'
+import { cls } from 'core/utils/cls'
 
 export interface IColorPicker {
-  defaultValue?: string
+  colorPicker?: string
 }
 
-const ColorPicker = ({ defaultValue }: IColorPicker) => {
+const ColorPicker = ({ colorPicker = `` }: IColorPicker) => {
+  const tooltipRef =
+    useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
+  const inputRef =
+    useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
+
+  usePickerTooltip({ tooltipRef, inputRef })
+  const [isVisible, setIsVisible] = useState(false)
+
   const {
     canvasRef,
     pickerRef,
@@ -15,27 +26,46 @@ const ColorPicker = ({ defaultValue }: IColorPicker) => {
     handleMove,
     handleStart,
     handleEnd,
-  } = useColorPicker()
+  } = useColorPicker({ colorPicker })
+
+  const handleClickInput = () => setIsVisible(!isVisible)
 
   return (
-    <S.ColorPicker>
-      <S.CanvasContainer>
-        <S.Canvas ref={canvasRef} />
-        <S.CanvasPicker
-          ref={pickerRef}
-          onClick={handleClick}
-          onMouseDown={handleStart}
-          onMouseMove={handleMove}
-          onMouseUp={handleEnd}
-        />
-      </S.CanvasContainer>
+    <S.Wrapper>
+      <S.ColorPickerPanel
+        ref={tooltipRef}
+        className={cls({
+          hide: !isVisible,
+        })}
+      >
+        <S.ColorPicker>
+          <S.TitlePicker level="h4" textAlign="left" width="full">
+            Color Picker:
+          </S.TitlePicker>
+          <S.CanvasContainer>
+            <S.Canvas ref={canvasRef} />
+            <S.CanvasPicker
+              ref={pickerRef}
+              onClick={handleClick}
+              onMouseDown={handleStart}
+              onMouseMove={handleMove}
+              onMouseUp={handleEnd}
+            />
+          </S.CanvasContainer>
 
-      <S.Info>
-        <S.SelectedTitle level="h3">Color selected:</S.SelectedTitle>
-        <S.SelectedViewer style={{ background: colorPicked }} />
-        <p>{colorPicked}</p>
-      </S.Info>
-    </S.ColorPicker>
+          <S.Info>
+            <S.SelectedViewer style={{ background: colorPicked }} />
+            <S.SelectedTitle level="h4">
+              {colorPicked != '' ? colorPicked : 'Not Picked'}
+            </S.SelectedTitle>
+          </S.Info>
+        </S.ColorPicker>
+      </S.ColorPickerPanel>
+
+      <div ref={inputRef}>
+        <Input readOnly value={colorPicked} onClick={handleClickInput} />
+      </div>
+    </S.Wrapper>
   )
 }
 
