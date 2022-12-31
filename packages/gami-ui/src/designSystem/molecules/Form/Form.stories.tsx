@@ -10,6 +10,9 @@ import Select from '../../atoms/Select'
 import Radio from '../../atoms/Radio'
 import Button from '../../atoms/Button'
 import Container from '../../layouts/Container'
+import File from 'designSystem/atoms/File'
+import DatePicker from 'designSystem/atoms/DatePicker'
+import ColorPicker from 'designSystem/atoms/ColorPicker'
 
 export default {
   title: 'Molecules/Form',
@@ -121,6 +124,27 @@ export const WithUseForm = () => {
           name="password"
         >
           <Input placeholder="Descripcion" />
+        </Form.Item>
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Fecha Inicio"
+          name="datestart"
+        >
+          <DatePicker />
+        </Form.Item>
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Color"
+          name="colorpicker"
+        >
+          <ColorPicker />
+        </Form.Item>
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Archivos para cargar"
+          name="filelist"
+        >
+          <File />
         </Form.Item>
         <Form.Item
           rules={[{ type: 'required', message: 'Campo requerido' }]}

@@ -8,6 +8,7 @@ export const Wrapper = styled.div``
 
 export const ColorPickerPanel = styled(Panel)`
   position: fixed;
+  z-index: 3;
 
   &.hide {
     visibility: hidden;

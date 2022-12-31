@@ -8,8 +8,12 @@ export interface IFileView {
   file: File
 }
 
-export const useFile = () => {
-  const [files, setFiles] = useState<IFileView[]>([])
+export interface IUseFile {
+  files: IFileView[]
+  setFiles: (value: IFileView[]) => void
+}
+
+export const useFile = ({ files, setFiles }: IUseFile) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const formatFileSize = (fileSize: number) => {
@@ -81,7 +85,7 @@ export const useFile = () => {
     inputRef,
     handleListFilesSelected,
     handleBrowseFiles,
-    addFile, 
-    transformFileData
+    addFile,
+    transformFileData,
   }
 }

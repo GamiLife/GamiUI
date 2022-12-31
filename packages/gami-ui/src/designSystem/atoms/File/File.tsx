@@ -1,19 +1,17 @@
 import React from 'react'
+import { TOnChangeFormItem } from '../Input/Input'
 import Title from '../Title'
 import * as S from './File.styles'
 import { useDrag } from './useDrag'
-import { useFile } from './useFile'
+import { IFileView, useFile } from './useFile'
 
 export interface IFile {
-  /**
-   * Prop Of File
-   */
-  prop?: any
+  onChangeFormItem?: TOnChangeFormItem
+  value?: IFileView[]
 }
 
-const File = ({ prop }: IFile) => {
+const File = ({ onChangeFormItem, value = [] }: IFile) => {
   const {
-    files,
     formatFileSize,
     removeFile,
     inputRef,
@@ -21,7 +19,10 @@ const File = ({ prop }: IFile) => {
     handleBrowseFiles,
     addFile,
     transformFileData,
-  } = useFile()
+  } = useFile({
+    files: (value as any) == '' || !value ? [] : value,
+    setFiles: (value) => onChangeFormItem?.(value),
+  })
   const { handleDrag, handleDrop, dragActive } = useDrag({
     transformFileData,
     addFile,
@@ -29,9 +30,9 @@ const File = ({ prop }: IFile) => {
 
   return (
     <S.FileWrapper>
-      {!!files.length && (
+      {!!value.length && (
         <S.FileList>
-          {files.map(({ name, extension, size, id }) => (
+          {value.map(({ name, extension, size, id }) => (
             <S.FileItem key={id}>
               <S.FileDetails>
                 <S.FileType padding="11px">{extension}</S.FileType>

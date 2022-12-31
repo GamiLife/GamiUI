@@ -52,6 +52,9 @@ export { default as Number } from './designSystem/atoms/Number'
 export { default as Radio } from './designSystem/atoms/Radio'
 export { default as Select } from './designSystem/atoms/Select'
 export { default as Loader } from './designSystem/atoms/Loader'
+export { default as File } from './designSystem/atoms/File'
+export { default as ColorPicker } from './designSystem/atoms/ColorPicker'
+export { default as DatePicker } from './designSystem/atoms/DatePicker'
 
 //Layouts
 export { default as Col, argTypes as docsCol } from './designSystem/layouts/Col'

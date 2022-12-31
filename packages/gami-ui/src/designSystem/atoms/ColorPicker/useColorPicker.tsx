@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 
 export interface IUseColorPicker {
   colorPicker: string
+  setColorPicked: (value: string) => void
 }
 
-export const useColorPicker = ({ colorPicker }: IUseColorPicker) => {
+export const useColorPicker = ({ colorPicker, setColorPicked }: IUseColorPicker) => {
   const width = 200
   const height = 200
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const pickerRef = useRef<HTMLCanvasElement | null>(null)
-  const [colorPicked, setColorPicked] = useState(colorPicker)
   const [isDnd, setIsDnd] = useState(false)
 
   const getCtx = (ref: React.MutableRefObject<HTMLCanvasElement | null>) => {
@@ -196,7 +196,6 @@ export const useColorPicker = ({ colorPicker }: IUseColorPicker) => {
     canvasRef,
     pickerRef,
     handleClick,
-    colorPicked,
     handleMove,
     handleEnd,
     handleStart,

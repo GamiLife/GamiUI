@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Meta } from '@storybook/react'
 
 import DatePicker from '.'
@@ -10,18 +10,27 @@ export default {
   argTypes: {},
 } as Meta
 
-export const Basic = (args: any) => <DatePicker {...args} />
-Basic.args = {}
+export const Basic = () => {
+  const [value, setValue] = useState()
 
-export const WithTooltipAbove = (args: any) => (
-  <div>
-    <div style={{ height: '400px', width: '300px', background: 'white' }}></div>
-    <DatePicker {...args} />
-  </div>
-)
-Basic.args = {}
+  return <DatePicker value={value} onChangeFormItem={setValue} />
+}
 
-export const WithDefault = (args: any) => <DatePicker {...args} />
-WithDefault.args = {
-  defaultDate: new Date(2022, 10, 12),
+export const WithTooltipAbove = () => {
+  const [value, setValue] = useState()
+
+  return (
+    <div>
+      <div
+        style={{ height: '400px', width: '300px', background: 'white' }}
+      ></div>
+      <DatePicker value={value} onChangeFormItem={setValue} />
+    </div>
+  )
+}
+
+export const WithDefault = () => {
+  const [value, setValue] = useState(new Date(2022, 10, 12))
+
+  return <DatePicker value={value} onChangeFormItem={setValue} />
 }

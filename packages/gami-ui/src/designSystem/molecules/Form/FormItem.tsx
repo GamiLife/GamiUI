@@ -16,6 +16,9 @@ import * as S from './Form.styles'
 
 import FormError from './FormError'
 import { cls } from 'core/utils/cls'
+import File from 'designSystem/atoms/File'
+import ColorPicker from 'designSystem/atoms/ColorPicker'
+import DatePicker from 'designSystem/atoms/DatePicker'
 
 export type TRulesType = 'required' | 'email' | 'maxNumber' | 'minNumber'
 
@@ -49,7 +52,18 @@ const FormItem = ({ label = '', name, children }: IFormItem) => {
     advancedOptions: {
       propsOfElement: [{ props: {}, childrenConditionTypes: [Button] }],
     },
-    childrenTypes: [Input, Password, TextArea, Select, Radio, Number, Button],
+    childrenTypes: [
+      Input,
+      Password,
+      TextArea,
+      Select,
+      Radio,
+      Number,
+      Button,
+      File,
+      ColorPicker,
+      DatePicker,
+    ],
   })
 
   if (validatorChildrenLength(childrenWithProps)) {

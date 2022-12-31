@@ -6,30 +6,47 @@ import React, { useState, useRef } from 'react'
 import Calendar from '../Calendar'
 import { usePickerTooltip } from 'hooks/usePickerTooltip'
 import { cls } from 'core/utils/cls'
+import { TOnChangeFormItem } from '../Input/Input'
 
 export interface IDatePicker {
-  /**
-   * Prop Of DatePicker
-   */
-  defaultDate?: Date
+  onChangeFormItem?: TOnChangeFormItem
+  value?: Date
+}
+const getTimeStampByDate = (date?: Date) => {
+  if (!date) return 0
+
+  const year = date.getFullYear()
+  const month = date.getMonth()
+  const dayNumber = date.getDate()
+
+  const timestamp = new Date(year, month, dayNumber)
+  return timestamp.getTime()
 }
 
-const DatePicker = ({ defaultDate }: IDatePicker) => {
+const getDateByTimeStamp = (timestamp: number) => {
+  return new Date(timestamp)
+}
+
+const DatePicker = ({ onChangeFormItem, value }: IDatePicker) => {
+  const daySelected = getTimeStampByDate(value)
+  const [currentDate, setCurrentDate] = useState<Date>(
+    (value as any) == '' || !value ? new Date() : value
+  )
+
+  const [isVisible, setIsVisible] = useState(false)
   const tooltipRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
   const inputRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
-
   usePickerTooltip({ tooltipRef, inputRef })
 
-  const [dateSelected, setDateSelected] = useState<Date | undefined>()
-  const [isVisible, setIsVisible] = useState(false)
+  const formatDate = () => {
+    if (daySelected <= 0) return ''
 
-  const handleDateSelected = (date?: Date) => {
-    setDateSelected(date)
+    const currentDateCloned = new Date(daySelected)
+
+    return currentDateCloned.toLocaleString()
   }
-
-  const value = dateSelected ? dateSelected.toLocaleString() : ''
 
   const handleClick = () => setIsVisible(!isVisible)
 
@@ -42,13 +59,17 @@ const DatePicker = ({ defaultDate }: IDatePicker) => {
         })}
       >
         <Calendar
-          defaultDate={defaultDate}
-          onDateSelected={handleDateSelected}
+          daySelected={daySelected}
+          currentDate={currentDate}
+          handleSelectDay={(dayId) =>
+            onChangeFormItem?.(getDateByTimeStamp(dayId))
+          }
+          handleSelectCurrentDate={setCurrentDate}
         />
       </S.PickerCalendar>
 
       <div ref={inputRef}>
-        <Input readOnly value={value} onClick={handleClick} />
+        <Input readOnly value={formatDate()} onClick={handleClick} />
       </div>
     </Container>
   )

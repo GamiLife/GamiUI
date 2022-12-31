@@ -105,7 +105,7 @@ export const Panel = styled.div`
   width: 300px;
   max-width: 300px;
 
-  background: rgba(255, 255, 255, 0.25);
+  background: white;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);

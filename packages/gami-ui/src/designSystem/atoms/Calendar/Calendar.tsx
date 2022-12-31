@@ -12,33 +12,27 @@ export interface ICalendar {
    * Handler on date selection
    */
   onDateSelected?: (date?: Date) => void
+
+  daySelected: number
+  handleSelectDay: (dayId: number) => void
+  handleSelectCurrentDate: (date: Date) => void
+  currentDate: Date
 }
 
 const Calendar = React.forwardRef(
   (
-    { onDateSelected, defaultDate }: ICalendar,
+    {
+      handleSelectCurrentDate,
+      currentDate,
+      handleSelectDay,
+      daySelected,
+    }: ICalendar,
     ref: React.ForwardedRef<HTMLDivElement>
   ) => {
-    const getTimeStamp = () => {
-      if (!defaultDate) return 0
-
-      const year = defaultDate.getFullYear()
-      const month = defaultDate.getMonth()
-      const dayNumber = defaultDate.getDate()
-
-      const timestamp = new Date(year, month, dayNumber)
-      return timestamp.getTime()
-    }
-
-    const [currentDate, setCurrentDate] = useState<Date>(
-      defaultDate ?? new Date()
-    )
     const [weeks, setWeeks] = useState<number>(0)
     const [calendar, setCalendar] = useState<ICalendarItem[]>([])
     const [month, setMonth] = useState<string>('')
     const [year, setYear] = useState<number>(0)
-
-    const [daySelected, setDaySelected] = useState<number>(getTimeStamp())
 
     const handleChangeDateByMonth = (type: 'prev' | 'next') => {
       const currentDateCloned = new Date(currentDate.getTime())
@@ -47,15 +41,7 @@ const Calendar = React.forwardRef(
       const monthOperation = currentMonth + (type === 'prev' ? -1 : +1)
       currentDateCloned.setMonth(monthOperation)
 
-      setCurrentDate(currentDateCloned)
-    }
-
-    const formatDate = () => {
-      if (daySelected <= 0) return
-
-      const currentDateCloned = new Date(daySelected)
-
-      return currentDateCloned
+      handleSelectCurrentDate(currentDateCloned)
     }
 
     const handleCalendar = () => {
@@ -80,16 +66,9 @@ const Calendar = React.forwardRef(
       handleCalendar()
     }, [currentDate])
 
-    useEffect(() => {
-      const senderDate = formatDate()
-      onDateSelected?.(senderDate)
-    }, [daySelected])
-
     const prevMonth = () => handleChangeDateByMonth('prev')
 
     const nextMonth = () => handleChangeDateByMonth('next')
-
-    const handleSelectDay = (dayId: number) => setDaySelected(dayId)
 
     return (
       <S.Calendar ref={ref}>

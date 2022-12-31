@@ -5,7 +5,10 @@ export interface IUsePickerTooltip {
   inputRef: React.MutableRefObject<HTMLDivElement>
 }
 
-export const usePickerTooltip = ({ tooltipRef, inputRef }: IUsePickerTooltip) => {
+export const usePickerTooltip = ({
+  tooltipRef,
+  inputRef,
+}: IUsePickerTooltip) => {
   const margin = 15
 
   const getPositionInputRef = () => {
@@ -39,6 +42,8 @@ export const usePickerTooltip = ({ tooltipRef, inputRef }: IUsePickerTooltip) =>
 
     const isValidVertical = top > spaceHeightTooltip
 
+    console.log('test', top, spaceHeightTooltip, heighTooltip)
+
     if (isValidVertical) {
       setTooltipAbove(top, heighTooltip)
       return
@@ -46,6 +51,15 @@ export const usePickerTooltip = ({ tooltipRef, inputRef }: IUsePickerTooltip) =>
 
     setTooltipBelow(top, height)
   }
+
+  useEffect(() => {
+    if (!inputRef.current) return // wait for the elementRef to be available
+    const resizeObserver = new ResizeObserver(() => {
+      handleTooltip()
+    })
+    resizeObserver.observe(inputRef.current)
+    return () => resizeObserver.disconnect() // clean up
+  }, [])
 
   useEffect(() => {
     handleTooltip()

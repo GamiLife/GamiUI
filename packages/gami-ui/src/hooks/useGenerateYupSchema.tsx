@@ -10,6 +10,9 @@ import Radio from '../designSystem/atoms/Radio'
 import * as Yup from 'yup'
 import { BooleanSchema, NumberSchema, ObjectSchema, StringSchema } from 'yup'
 import { IFormItem, IRules } from '../designSystem/molecules/Form/FormItem'
+import File from 'designSystem/atoms/File'
+import ColorPicker from 'designSystem/atoms/ColorPicker'
+import DatePicker from 'designSystem/atoms/DatePicker'
 
 interface IYupSchema {
   [key: string]: any
@@ -90,7 +93,11 @@ const useGenerateYupSchema = ({ children }: IUseGenerateYupSchema) => {
 
       let rule: TRulesInstance | null = null
 
-      if ([Input, Password, TextArea].includes(childrenTypeOfChildren)) {
+      if (
+        [Input, Password, TextArea, ColorPicker, DatePicker].includes(
+          childrenTypeOfChildren
+        )
+      ) {
         rule = Yup.string()
       }
 
@@ -98,7 +105,7 @@ const useGenerateYupSchema = ({ children }: IUseGenerateYupSchema) => {
         rule = Yup.number()
       }
 
-      if ([Select, Radio].includes(childrenTypeOfChildren)) {
+      if ([Select, Radio, File].includes(childrenTypeOfChildren)) {
         rule = Yup.object()
       }
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Meta } from '@storybook/react'
 
 import ColorPicker from '.'
@@ -10,5 +10,8 @@ export default {
   argTypes: {},
 } as Meta
 
-export const Basic = (args: any) => <ColorPicker {...args} />
-Basic.args = {}
+export const Basic = () => {
+  const [value, setValue] = useState('')
+
+  return <ColorPicker value={value} onChangeFormItem={setValue} />
+}

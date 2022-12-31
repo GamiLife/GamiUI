@@ -4,12 +4,14 @@ import * as S from './ColorPicker.styles'
 import { useColorPicker } from './useColorPicker'
 import { usePickerTooltip } from 'hooks/usePickerTooltip'
 import { cls } from 'core/utils/cls'
+import { TOnChangeFormItem } from '../Input/Input'
 
 export interface IColorPicker {
-  colorPicker?: string
+  value?: string
+  onChangeFormItem?: TOnChangeFormItem
 }
 
-const ColorPicker = ({ colorPicker = `` }: IColorPicker) => {
+const ColorPicker = ({ onChangeFormItem, value = '' }: IColorPicker) => {
   const tooltipRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
   const inputRef =
@@ -22,11 +24,13 @@ const ColorPicker = ({ colorPicker = `` }: IColorPicker) => {
     canvasRef,
     pickerRef,
     handleClick,
-    colorPicked,
     handleMove,
     handleStart,
     handleEnd,
-  } = useColorPicker({ colorPicker })
+  } = useColorPicker({
+    colorPicker: value,
+    setColorPicked: (valueProp) => onChangeFormItem?.(valueProp),
+  })
 
   const handleClickInput = () => setIsVisible(!isVisible)
 
@@ -54,16 +58,16 @@ const ColorPicker = ({ colorPicker = `` }: IColorPicker) => {
           </S.CanvasContainer>
 
           <S.Info>
-            <S.SelectedViewer style={{ background: colorPicked }} />
+            <S.SelectedViewer style={{ background: value }} />
             <S.SelectedTitle level="h4">
-              {colorPicked != '' ? colorPicked : 'Not Picked'}
+              {value != '' ? value : 'Not Picked'}
             </S.SelectedTitle>
           </S.Info>
         </S.ColorPicker>
       </S.ColorPickerPanel>
 
       <div ref={inputRef}>
-        <Input readOnly value={colorPicked} onClick={handleClickInput} />
+        <Input readOnly value={value} onClick={handleClickInput} />
       </div>
     </S.Wrapper>
   )
