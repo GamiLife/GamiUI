@@ -1,16 +1,24 @@
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useResizeObserver } from './useResizeObserver'
 
 export interface IUsePickerTooltip {
   tooltipRef: React.MutableRefObject<HTMLDivElement>
   inputRef: React.MutableRefObject<HTMLDivElement>
+  handleOnClickOutside?: () => void
 }
 
 export const usePickerTooltip = ({
   tooltipRef,
   inputRef,
+  handleOnClickOutside,
 }: IUsePickerTooltip) => {
-  const margin = 15
+  const [heightTooltip, setHeightTooltip] = useState(0)
+  useResizeObserver({
+    refElement: tooltipRef,
+    handler: ({ height }) => setHeightTooltip(height),
+  })
 
+  const margin = 15
   const getPositionInputRef = () => {
     const input = inputRef.current
     const { top, left, height } = input.getBoundingClientRect()
@@ -42,8 +50,6 @@ export const usePickerTooltip = ({
 
     const isValidVertical = top > spaceHeightTooltip
 
-    console.log('test', top, spaceHeightTooltip, heighTooltip)
-
     if (isValidVertical) {
       setTooltipAbove(top, heighTooltip)
       return
@@ -52,17 +58,40 @@ export const usePickerTooltip = ({
     setTooltipBelow(top, height)
   }
 
-  useEffect(() => {
-    if (!inputRef.current) return // wait for the elementRef to be available
-    const resizeObserver = new ResizeObserver(() => {
-      handleTooltip()
-    })
-    resizeObserver.observe(inputRef.current)
-    return () => resizeObserver.disconnect() // clean up
-  }, [])
+  const handleDetectClickOutside = (e: MouseEvent) => {
+    const targetElement = e.target as Element
+
+    if (!targetElement) return
+
+    const isClickInsideInputElement = inputRef.current.contains(targetElement)
+
+    if (isClickInsideInputElement) return
+
+    const isClickInsideRefElement = tooltipRef.current.contains(targetElement)
+
+    if (isClickInsideRefElement) return
+
+    handleOnClickOutside?.()
+  }
 
   useEffect(() => {
     handleTooltip()
+  }, [tooltipRef.current, inputRef.current, heightTooltip])
+
+  useEffect(() => {
+    if (typeof window === undefined) return
+
+    window.addEventListener('scroll', handleTooltip, true)
+
+    return () => window.removeEventListener('scroll', handleTooltip, true)
+  }, [tooltipRef.current, inputRef.current])
+
+  useEffect(() => {
+    if (typeof window === undefined) return
+
+    window.addEventListener('click', handleDetectClickOutside)
+
+    return () => window.removeEventListener('click', handleDetectClickOutside)
   }, [tooltipRef.current, inputRef.current])
 
   return {}

@@ -129,5 +129,7 @@ export {
   useDevice,
   useCssHandle,
   useCloneElements,
+  useResizeObserver,
+  usePickerTooltip,
   Portal,
 } from './hooks'

@@ -13,6 +13,8 @@ import { IFormItem, IRules } from '../designSystem/molecules/Form/FormItem'
 import File from 'designSystem/atoms/File'
 import ColorPicker from 'designSystem/atoms/ColorPicker'
 import DatePicker from 'designSystem/atoms/DatePicker'
+import { OptionalArraySchema } from 'yup/lib/array'
+import { AnyObject } from 'yup/lib/types'
 
 interface IYupSchema {
   [key: string]: any
@@ -37,11 +39,17 @@ type TBooleanSchema = BooleanSchema<
   boolean | undefined
 >
 type TObjectSchema = ObjectSchema<any, any, any, any>
+type TArraySchema = OptionalArraySchema<
+  Yup.AnySchema<any, any, any>,
+  AnyObject,
+  any[] | undefined
+>
 type TRulesInstance =
   | TStringSchema
   | TNumberSchema
   | TBooleanSchema
   | TObjectSchema
+  | TArraySchema
 
 export interface IUseGenerateYupSchema {
   children: React.ReactNode
@@ -105,8 +113,12 @@ const useGenerateYupSchema = ({ children }: IUseGenerateYupSchema) => {
         rule = Yup.number()
       }
 
-      if ([Select, Radio, File].includes(childrenTypeOfChildren)) {
+      if ([Select, Radio].includes(childrenTypeOfChildren)) {
         rule = Yup.object()
+      }
+
+      if ([File].includes(childrenTypeOfChildren)) {
+        rule = Yup.array()
       }
 
       if (!rule) return

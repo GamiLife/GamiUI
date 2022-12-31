@@ -17,8 +17,13 @@ const ColorPicker = ({ onChangeFormItem, value = '' }: IColorPicker) => {
   const inputRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
 
-  usePickerTooltip({ tooltipRef, inputRef })
   const [isVisible, setIsVisible] = useState(false)
+
+  usePickerTooltip({
+    tooltipRef,
+    inputRef,
+    handleOnClickOutside: () => setIsVisible(false),
+  })
 
   const {
     canvasRef,

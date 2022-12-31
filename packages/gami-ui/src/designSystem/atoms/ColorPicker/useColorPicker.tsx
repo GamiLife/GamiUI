@@ -5,7 +5,10 @@ export interface IUseColorPicker {
   setColorPicked: (value: string) => void
 }
 
-export const useColorPicker = ({ colorPicker, setColorPicked }: IUseColorPicker) => {
+export const useColorPicker = ({
+  colorPicker,
+  setColorPicked,
+}: IUseColorPicker) => {
   const width = 200
   const height = 200
   const canvasRef = useRef<HTMLCanvasElement | null>(null)

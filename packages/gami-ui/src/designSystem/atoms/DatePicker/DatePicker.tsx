@@ -38,7 +38,11 @@ const DatePicker = ({ onChangeFormItem, value }: IDatePicker) => {
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
   const inputRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
-  usePickerTooltip({ tooltipRef, inputRef })
+  usePickerTooltip({
+    tooltipRef,
+    inputRef,
+    handleOnClickOutside: () => setIsVisible(false),
+  })
 
   const formatDate = () => {
     if (daySelected <= 0) return ''

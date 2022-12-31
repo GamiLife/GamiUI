@@ -53,4 +53,3 @@ export default withDefaults(
   Container,
   defaultProps
 ) as ContainerComponent<IContainer>
- 

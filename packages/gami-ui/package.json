@@ -1,6 +1,6 @@
 {
   "name": "@gamiui/standard",
-  "version": "0.1.0-alpha.82",
+  "version": "0.1.0-alpha.83",
   "description": "GamiUI Library of standard components",
   "source": "src/index.ts",
   "main": "lib/cjs/index.js",

@@ -12,7 +12,6 @@ export const ColorPickerPanel = styled(Panel)`
 
   &.hide {
     visibility: hidden;
-    height: 0px;
   }
 `
 

@@ -8,6 +8,5 @@ export const PickerCalendar = styled.div`
 
   &.hide {
     visibility: hidden;
-    height: 0px;
   }
 `
