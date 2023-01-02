@@ -11,7 +11,9 @@ import { TOnChangeFormItem } from '../Input/Input'
 export interface IDatePicker {
   onChangeFormItem?: TOnChangeFormItem
   value?: Date
+  formatter?: string
 }
+
 const getTimeStampByDate = (date?: Date) => {
   if (!date) return 0
 

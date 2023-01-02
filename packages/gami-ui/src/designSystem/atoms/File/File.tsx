@@ -2,15 +2,26 @@ import React from 'react'
 import { TOnChangeFormItem } from '../Input/Input'
 import Title from '../Title'
 import * as S from './File.styles'
+import { FilePreview } from './FilePreview'
 import { useDrag } from './useDrag'
 import { IFileView, useFile } from './useFile'
 
 export interface IFile {
   onChangeFormItem?: TOnChangeFormItem
   value?: IFileView[]
+  /**
+   * By default IsMultiple allows load multiple files
+   */
+  isMultiple?: boolean
+  withPreview?: boolean
 }
 
-const File = ({ onChangeFormItem, value = [] }: IFile) => {
+const File = ({
+  onChangeFormItem,
+  withPreview = false,
+  isMultiple = true,
+  value = [],
+}: IFile) => {
   const {
     formatFileSize,
     removeFile,
@@ -22,6 +33,7 @@ const File = ({ onChangeFormItem, value = [] }: IFile) => {
   } = useFile({
     files: (value as any) == '' || !value ? [] : value,
     setFiles: (value) => onChangeFormItem?.(value),
+    isMultiple,
   })
   const { handleDrag, handleDrop, dragActive } = useDrag({
     transformFileData,
@@ -32,10 +44,16 @@ const File = ({ onChangeFormItem, value = [] }: IFile) => {
     <S.FileWrapper>
       {!!value.length && (
         <S.FileList>
-          {value.map(({ name, extension, size, id }) => (
+          {value.map(({ name, extension, size, id, file }) => (
             <S.FileItem key={id}>
               <S.FileDetails>
-                <S.FileType padding="11px">{extension}</S.FileType>
+                <FilePreview
+                  fileName={name}
+                  extension={extension}
+                  file={file}
+                  withPreview={withPreview}
+                />
+
                 <Title
                   level="h4"
                   fontWeight="semibold"

@@ -4,6 +4,7 @@ import { lightTheme } from 'styles/tokens/lightTheme'
 import Button from '../Button'
 import Icon from '../Icon'
 import Title from '../Title'
+import Image from '../Image'
 
 export const FileWrapper = styled(Container)`
   display: flex;
@@ -96,3 +97,7 @@ export const DragPlaceholder = styled.div`
   left: 0px;
   top: 0px;
 `
+
+export const FilePreview = styled(Container)``
+
+export const FileImage = styled.img``

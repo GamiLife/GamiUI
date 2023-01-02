@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 
 export interface IFileView {
   id: string
@@ -11,9 +11,10 @@ export interface IFileView {
 export interface IUseFile {
   files: IFileView[]
   setFiles: (value: IFileView[]) => void
+  isMultiple: boolean
 }
 
-export const useFile = ({ files, setFiles }: IUseFile) => {
+export const useFile = ({ files, setFiles, isMultiple }: IUseFile) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const formatFileSize = (fileSize: number) => {
@@ -31,8 +32,9 @@ export const useFile = ({ files, setFiles }: IUseFile) => {
 
     if (isOnFileList) return
 
-    const filesUpdated = [...files, newFile]
-    setFiles(filesUpdated)
+    const filesToModify = isMultiple ? [...files, newFile] : [newFile]
+
+    setFiles(filesToModify)
   }
 
   const removeFile = (idToRemove: string) => {
