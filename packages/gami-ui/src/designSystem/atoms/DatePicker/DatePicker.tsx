@@ -2,16 +2,17 @@ import Container from 'designSystem/layouts/Container'
 import Input from 'designSystem/atoms/Input'
 import * as S from './DatePicker.styles'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Calendar from '../Calendar'
 import { usePickerTooltip } from 'hooks/usePickerTooltip'
 import { cls } from 'core/utils/cls'
 import { TOnChangeFormItem } from '../Input/Input'
+import { dateFormatter, TPattern } from 'core/helpers/date-formatter'
 
 export interface IDatePicker {
   onChangeFormItem?: TOnChangeFormItem
   value?: Date
-  formatter?: string
+  formatter?: TPattern
 }
 
 const getTimeStampByDate = (date?: Date) => {
@@ -29,11 +30,19 @@ const getDateByTimeStamp = (timestamp: number) => {
   return new Date(timestamp)
 }
 
-const DatePicker = ({ onChangeFormItem, value }: IDatePicker) => {
+const DatePicker = ({
+  onChangeFormItem,
+  value,
+  formatter = 'dd/MM/yyyy',
+}: IDatePicker) => {
   const daySelected = getTimeStampByDate(value)
   const [currentDate, setCurrentDate] = useState<Date>(
     (value as any) == '' || !value ? new Date() : value
   )
+
+  useEffect(() => {
+    value && setCurrentDate(value)
+  }, [value])
 
   const [isVisible, setIsVisible] = useState(false)
   const tooltipRef =
@@ -51,7 +60,7 @@ const DatePicker = ({ onChangeFormItem, value }: IDatePicker) => {
 
     const currentDateCloned = new Date(daySelected)
 
-    return currentDateCloned.toLocaleString()
+    return dateFormatter(currentDateCloned, formatter)
   }
 
   const handleClick = () => setIsVisible(!isVisible)

@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { IFileView } from './useFile'
+import { IFileViewItem } from './useFile'
 
 export interface IUseDrag {
-  transformFileData: (file: File) => IFileView
-  addFile: (newFile: IFileView) => void
+  transformFileData: (file?: File) => IFileViewItem | undefined
+  addFile: (newFile: IFileViewItem) => void
 }
 
 export const useDrag = ({ transformFileData, addFile }: IUseDrag) => {
@@ -30,6 +30,8 @@ export const useDrag = ({ transformFileData, addFile }: IUseDrag) => {
     if (!file) return
 
     const newFile = transformFileData(file)
+    if (!newFile) return
+
     addFile(newFile)
   }
 

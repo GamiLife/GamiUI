@@ -120,6 +120,9 @@ export { mediaQuery } from './styles/utilities/breakpoints'
 //Utilities
 export { TableStories } from './styles/utilities/components'
 
+//Helper
+export { dateFormatter } from './core/helpers'
+
 //Hooks
 export {
   useStepStore,

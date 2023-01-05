@@ -96,6 +96,13 @@ export const WithUseForm = () => {
       names: 'test',
       password: 'description',
       country: { value: 'chocolate', label: 'Chocolate' },
+      filelist: [
+        {
+          id: 1,
+          url: 'https://images.contentstack.io/v3/assets/bltf4ed0b9a176c126e/blt6871630c83593ee6/63ab095bf3b4ac0c1aec8723/Crossbanner-DK-captacion-enero23.png',
+        },
+      ],
+      datestart: new Date(2022, 0, 1),
     },
   })
 
@@ -130,7 +137,7 @@ export const WithUseForm = () => {
           label="Fecha Inicio"
           name="datestart"
         >
-          <DatePicker />
+          <DatePicker formatter="dd/MM/yy" />
         </Form.Item>
         <Form.Item
           rules={[{ type: 'required', message: 'Campo requerido' }]}
@@ -140,11 +147,23 @@ export const WithUseForm = () => {
           <ColorPicker />
         </Form.Item>
         <Form.Item
-          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          rules={[
+            { type: 'required', message: 'Campo requerido' },
+            {
+              type: 'minLength',
+              message: 'Debes cargar minimo 1 imagen',
+              value: 1,
+            },
+            {
+              type: 'maxLength',
+              message: 'El limite de imagenes es de 5',
+              value: 5,
+            },
+          ]}
           label="Archivos para cargar"
           name="filelist"
         >
-          <File />
+          <File withPreview />
         </Form.Item>
         <Form.Item
           rules={[{ type: 'required', message: 'Campo requerido' }]}

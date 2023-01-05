@@ -20,7 +20,13 @@ import File from 'designSystem/atoms/File'
 import ColorPicker from 'designSystem/atoms/ColorPicker'
 import DatePicker from 'designSystem/atoms/DatePicker'
 
-export type TRulesType = 'required' | 'email' | 'maxNumber' | 'minNumber'
+export type TRulesType =
+  | 'required'
+  | 'email'
+  | 'maxNumber'
+  | 'minNumber'
+  | 'minLength'
+  | 'maxLength'
 
 export interface IRules {
   type: TRulesType

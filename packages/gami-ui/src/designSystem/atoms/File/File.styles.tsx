@@ -4,7 +4,6 @@ import { lightTheme } from 'styles/tokens/lightTheme'
 import Button from '../Button'
 import Icon from '../Icon'
 import Title from '../Title'
-import Image from '../Image'
 
 export const FileWrapper = styled(Container)`
   display: flex;

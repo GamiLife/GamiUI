@@ -1,16 +1,24 @@
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
-export interface IFileView {
+type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>
+
+export type IFileView = {
   id: string
   name: string
   extension: string
   size: number
   file: File
+  url: string
 }
 
+export type IFileViewItem = Optional<
+  IFileView,
+  'file' | 'url' | 'size' | 'extension' | 'name'
+>
+
 export interface IUseFile {
-  files: IFileView[]
-  setFiles: (value: IFileView[]) => void
+  files: IFileViewItem[]
+  setFiles: (value: IFileViewItem[]) => void
   isMultiple: boolean
 }
 
@@ -27,7 +35,7 @@ export const useFile = ({ files, setFiles, isMultiple }: IUseFile) => {
     return `${(Math.round(+fileSize / 1024) / 1000).toFixed(0)}MB`
   }
 
-  const addFile = (newFile: IFileView) => {
+  const addFile = (newFile: IFileViewItem) => {
     const isOnFileList = files.find(({ id }) => newFile.id === id)
 
     if (isOnFileList) return
@@ -59,18 +67,24 @@ export const useFile = ({ files, setFiles, isMultiple }: IUseFile) => {
     if (!file) return
 
     const newFile = transformFileData(file)
+
+    if (!newFile) return
+
     addFile(newFile)
   }
 
-  const transformFileData = (file: File) => {
+  const transformFileData = (file?: File) => {
+    if (!file) return
+
     const [name, extension] = file.name.split('.')
     const size = file.size
-    const newFile = {
+    const newFile: IFileViewItem = {
       id: file.name,
       name,
       extension: extension.toLowerCase(),
       size,
       file,
+      url: '',
     }
 
     return newFile

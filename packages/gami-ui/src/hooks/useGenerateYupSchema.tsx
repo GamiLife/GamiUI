@@ -63,6 +63,18 @@ const useGenerateYupSchema = ({ children }: IUseGenerateYupSchema) => {
       if (type == 'required') {
         ruleInstanceToModify = ruleInstanceToModify.required(message)
       }
+      if (type == 'minLength') {
+        ruleInstanceToModify = (ruleInstanceToModify as TArraySchema).min(
+          value,
+          message
+        )
+      }
+      if (type == 'maxLength') {
+        ruleInstanceToModify = (ruleInstanceToModify as TArraySchema).max(
+          value,
+          message
+        )
+      }
       if (type == 'email') {
         ruleInstanceToModify = (ruleInstanceToModify as TStringSchema).matches(
           REGEX__EMAIL

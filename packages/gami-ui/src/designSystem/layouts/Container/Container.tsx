@@ -11,6 +11,7 @@ export interface IContainer extends IGeneralProps {
    * Container type
    */
   as?: keyof JSX.IntrinsicElements
+  dangerouslySetInnerHTML?: string
   /**
    * Content
    */
@@ -26,13 +27,22 @@ const Container = ({ children, as, ...genericsProps }: IContainer) => {
     customPrexiCls: genericsProps?.className,
   })
 
+  const dangerousField = genericsProps.dangerouslySetInnerHTML
+    ? {
+        dangerouslySetInnerHTML: {
+          __html: genericsProps.dangerouslySetInnerHTML,
+        },
+      }
+    : {}
+
   return (
     <S.Container
       className={cls(handles.wrapper, genericsProps?.className ?? '')}
       as={as}
       {...getGenericPropStyles(genericsProps)}
+      {...dangerousField}
     >
-      {children}
+      {genericsProps.dangerouslySetInnerHTML ? undefined : children}
     </S.Container>
   )
 }
