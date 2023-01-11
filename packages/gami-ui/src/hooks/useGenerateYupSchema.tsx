@@ -56,10 +56,22 @@ export interface IUseGenerateYupSchema {
 }
 
 const useGenerateYupSchema = ({ children }: IUseGenerateYupSchema) => {
-  const checkRules = (rules: IRules[], ruleInstance: TRulesInstance) => {
+  const checkRules = (
+    rules: IRules[],
+    ruleInstance: TRulesInstance,
+    name: string
+  ) => {
     let ruleInstanceToModify = ruleInstance
 
-    rules.map(({ type, message, value = 0 }: IRules) => {
+    rules.forEach(({ type, message, value = 0, fn }: IRules) => {
+      if (type === 'custom' && fn) {
+        ruleInstanceToModify = ruleInstanceToModify.test(
+          `custom-validation-${name}`,
+          message,
+          (value, context) => fn(value, context.parent)
+        )
+      }
+
       if (type == 'required') {
         ruleInstanceToModify = ruleInstanceToModify.required(message)
       }
@@ -135,12 +147,13 @@ const useGenerateYupSchema = ({ children }: IUseGenerateYupSchema) => {
 
       if (!rule) return
 
-      rule = checkRules(rules, rule)
+      rule = checkRules(rules, rule, name)
 
       if (rule) yupSchema[name] = rule
     })
 
-    return Yup.object().shape(yupSchema)
+    const schema = Yup.object().shape(yupSchema)
+    return schema
   }
 
   return { buildingYupSchema }

@@ -101,6 +101,10 @@ export const WithUseForm = () => {
           id: 1,
           url: 'https://images.contentstack.io/v3/assets/bltf4ed0b9a176c126e/blt6871630c83593ee6/63ab095bf3b4ac0c1aec8723/Crossbanner-DK-captacion-enero23.png',
         },
+        {
+          id: 2,
+          url: 'https://menudigital011023.s3.amazonaws.com/1673399827738-1665576018479.jpg',
+        },
       ],
       datestart: new Date(2022, 0, 1),
     },
@@ -140,6 +144,28 @@ export const WithUseForm = () => {
           <DatePicker formatter="dd/MM/yy" />
         </Form.Item>
         <Form.Item
+          rules={[
+            { type: 'required', message: 'Campo requerido' },
+            {
+              type: 'custom',
+              message: 'Fecha inicio es mayor que la fin',
+              fn: (value, formValues) => {
+                const { datestart } = formValues
+                const dateStart = new Date(datestart)
+                const dateEnd = new Date(value)
+
+                const isGreaterThanDateEnd = dateStart > dateEnd
+
+                return !isGreaterThanDateEnd
+              },
+            },
+          ]}
+          label="Fecha Fin"
+          name="dateend"
+        >
+          <DatePicker formatter="dd/MM/yy" />
+        </Form.Item>
+        <Form.Item
           rules={[{ type: 'required', message: 'Campo requerido' }]}
           label="Color"
           name="colorpicker"
@@ -163,7 +189,7 @@ export const WithUseForm = () => {
           label="Archivos para cargar"
           name="filelist"
         >
-          <File withPreview />
+          <File withPreview isMultiple />
         </Form.Item>
         <Form.Item
           rules={[{ type: 'required', message: 'Campo requerido' }]}

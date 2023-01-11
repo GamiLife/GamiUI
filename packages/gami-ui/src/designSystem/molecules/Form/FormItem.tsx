@@ -27,8 +27,10 @@ export type TRulesType =
   | 'minNumber'
   | 'minLength'
   | 'maxLength'
+  | 'custom'
 
 export interface IRules {
+  fn?: (value: any, formValues: any) => boolean
   type: TRulesType
   message: string
   value?: number
