@@ -55,6 +55,7 @@ export { default as Loader } from './designSystem/atoms/Loader'
 export { default as File } from './designSystem/atoms/File'
 export { default as ColorPicker } from './designSystem/atoms/ColorPicker'
 export { default as DatePicker } from './designSystem/atoms/DatePicker'
+export { default as SocialNetworks } from './designSystem/atoms/SocialNetworks'
 
 //Layouts
 export { default as Col, argTypes as docsCol } from './designSystem/layouts/Col'

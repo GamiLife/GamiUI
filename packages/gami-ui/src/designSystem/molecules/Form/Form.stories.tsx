@@ -99,11 +99,11 @@ export const WithUseForm = () => {
       filelist: [
         {
           id: 1,
-          url: 'https://images.contentstack.io/v3/assets/bltf4ed0b9a176c126e/blt6871630c83593ee6/63ab095bf3b4ac0c1aec8723/Crossbanner-DK-captacion-enero23.png',
+          url: 'https://menudigital011023.s3.amazonaws.com/1673459873090-component_gaminote2.png',
         },
         {
           id: 2,
-          url: 'https://menudigital011023.s3.amazonaws.com/1673399827738-1665576018479.jpg',
+          url: 'https://menudigital011023.s3.amazonaws.com/1673465177914-1665576018479.jpg',
         },
       ],
       datestart: new Date(2022, 0, 1),

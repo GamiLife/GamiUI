@@ -23,8 +23,6 @@ export const useResizeObserver = ({
     if (!refElement.current) return
 
     observer.current.observe(refElement.current)
-
-    return () => observer.current.unobserve(refElement.current as Element)
   }, [refElement, observer])
 
   return {}

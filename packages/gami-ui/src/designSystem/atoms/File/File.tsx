@@ -24,7 +24,16 @@ const FileComponent = ({
 }: IFile) => {
   const convertUrlToFile = async (url: string) => {
     try {
-      const response = await fetch(url)
+      const headers = new Headers()
+      headers.append('Access-Control-Allow-Origin', '*')
+      headers.append('cache-control', 'no-cache')
+      headers.append('pragma', 'no-cache')
+
+      const response = await fetch(url, {
+        method: 'GET',
+        headers,
+      })
+
       const blob = await response.blob()
       const file = new File([blob], 'myFile', { type: blob.type })
       const [, extension] = blob.type.split('/')
