@@ -12,7 +12,7 @@ export class FacebookStrategy implements IApp {
 }
 
 export interface IFacebook {
-  color: string
+  color?: string
   user: string
 }
 

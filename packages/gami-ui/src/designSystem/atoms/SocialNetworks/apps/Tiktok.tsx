@@ -11,7 +11,7 @@ export class TiktokStrategy implements IApp {
 }
 
 export interface ITiktok {
-  color: string
+  color?: string
   user: string
 }
 

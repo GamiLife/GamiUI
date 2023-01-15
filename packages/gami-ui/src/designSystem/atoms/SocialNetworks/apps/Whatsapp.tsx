@@ -20,7 +20,7 @@ export class WhatsappStrategy implements IApp {
 export interface IWhatsapp {
   message: string
   phone: string
-  color: string
+  color?: string
 }
 
 export const Whatsapp = ({ message, phone, color = '#00E676' }: IWhatsapp) => {

@@ -1,3 +1,4 @@
+import { lightTheme } from 'styles/tokens/lightTheme'
 import { App, createShareButton, IApp, IAppOptions } from '../utils'
 
 export class InstagramStrategy implements IApp {
@@ -12,11 +13,14 @@ export class InstagramStrategy implements IApp {
 }
 
 export interface IInstragram {
-  color: string
+  color?: string
   user: string
 }
 
-export const Instagram = ({ color, user }: IInstragram) => {
+export const Instagram = ({
+  color = lightTheme.primary.mediumPurple,
+  user,
+}: IInstragram) => {
   return createShareButton({
     app: 'instagram',
     link: new App().setStrategy(new InstagramStrategy()).makeLink('', { user }),
