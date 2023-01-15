@@ -46,7 +46,8 @@ export interface IFormItem {
 const FormItem = ({ label = '', name, children }: IFormItem) => {
   const { formValue, setFormValues } = useFormStore()
 
-  const handleChangeValue = (value: any): void => setFormValues({ name, value })
+  const handleChangeValue = (value: any): void =>
+    setFormValues({ name, value: value === null ? undefined : value })
 
   const { yupErrors } = useFormStore()
   const { validatorChildrenLength, childrenWithProps } = useCloneElement({

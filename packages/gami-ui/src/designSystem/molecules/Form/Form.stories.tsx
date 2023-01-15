@@ -61,6 +61,7 @@ export const Basic = () => (
       name="country"
     >
       <Select
+        isClearable
         placeholder="Type your option"
         options={[
           { value: 'chocolate', label: 'Chocolate' },
@@ -95,7 +96,6 @@ export const WithUseForm = () => {
     defaultValue: {
       names: 'test',
       password: 'description',
-      country: { value: 'chocolate', label: 'Chocolate' },
       filelist: [
         {
           id: 1,
@@ -191,12 +191,9 @@ export const WithUseForm = () => {
         >
           <File withPreview isMultiple />
         </Form.Item>
-        <Form.Item
-          rules={[{ type: 'required', message: 'Campo requerido' }]}
-          label="Elige un pais"
-          name="country"
-        >
+        <Form.Item label="Elige un pais" name="country">
           <Select
+            isClearable
             placeholder="Type your option"
             options={[
               { value: 'chocolate', label: 'Chocolate' },

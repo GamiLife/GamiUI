@@ -22,6 +22,11 @@ export const ReactSelect = styled(Select)`
   }
 
   .Select__placeholder {
+    margin-left: 0.5rem;
     color: ${defaultTheme.light.neutral[400]};
+  }
+
+  .Select__input {
+    margin-left: 0.5rem;
   }
 `

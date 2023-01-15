@@ -1,6 +1,9 @@
 import React from 'react'
 import { Whatsapp } from './apps/Whatsapp'
+import { Instagram } from './apps/Instagram'
 import * as S from './SocialNetworks.styles'
+import { Facebook } from './apps/Facebook'
+import { Tiktok } from './apps/Tiktok'
 
 export interface ISocialNetworks {
   /**
@@ -14,5 +17,8 @@ const SocialNetworks = ({ children }: ISocialNetworks) => {
 }
 
 SocialNetworks.Whatsapp = Whatsapp
+SocialNetworks.Instagram = Instagram
+SocialNetworks.Facebook = Facebook
+SocialNetworks.Tiktok = Tiktok
 
 export default SocialNetworks

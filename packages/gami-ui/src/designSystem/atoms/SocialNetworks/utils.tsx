@@ -7,6 +7,7 @@ import { ICreateShareButton } from './constants'
 export interface IAppOptions {
   phone?: string
   isMobileOrTablet?: boolean
+  user?: string
 }
 
 export interface IApp {
@@ -18,6 +19,7 @@ export class App {
 
   setStrategy(strategy: IApp) {
     this.strategy = strategy
+    return this
   }
 
   makeLink(url: string, options: IAppOptions) {

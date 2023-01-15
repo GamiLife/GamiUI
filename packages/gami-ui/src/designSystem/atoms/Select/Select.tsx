@@ -1,12 +1,14 @@
+import { CSSObject } from '@emotion/serialize'
 import React from 'react'
-import { OptionTypeBase } from 'react-select'
+import { OptionProps, OptionTypeBase } from 'react-select'
+import { lightTheme } from 'styles/tokens/lightTheme'
 
 import { IInput } from '../Input/Input'
 import * as S from './Select.styles'
 
 export interface IOptions {
   value: string
-  label: string
+  label: string | React.ReactNode
 }
 
 type TSelectValue = OptionTypeBase[] | OptionTypeBase | null | undefined
@@ -38,6 +40,24 @@ const Select = ({
   isMultiple = false,
   isClearable = false,
 }: ISelect) => {
+  const colourStyles = {
+    option: (
+      styles: CSSObject,
+      { isSelected, isFocused }: OptionProps<any, any, any>
+    ): CSSObject => {
+      const getBgOption = () => {
+        if (isSelected) return lightTheme.secondary.jordyBlueMedium
+        if (isFocused) return lightTheme.secondary.jordyBlueLight
+        return 'transparent'
+      }
+
+      return {
+        ...styles,
+        backgroundColor: getBgOption(),
+      }
+    },
+  }
+
   return (
     <S.ReactSelect
       isClearable={isClearable}
@@ -47,6 +67,7 @@ const Select = ({
       value={value}
       onChange={onChangeFormItem}
       options={options}
+      styles={colourStyles}
     />
   )
 }

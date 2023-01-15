@@ -1,5 +1,5 @@
 import { transformObjectToParams } from 'core/helpers'
-import { createShareButton, IApp, IAppOptions } from '../utils'
+import { App, createShareButton, IApp, IAppOptions } from '../utils'
 
 export class WhatsappStrategy implements IApp {
   makeLink(message: string, options: IAppOptions) {
@@ -26,7 +26,9 @@ export interface IWhatsapp {
 export const Whatsapp = ({ message, phone, color = '#00E676' }: IWhatsapp) => {
   return createShareButton({
     app: 'whatsapp',
-    link: new WhatsappStrategy().makeLink(message, { phone }),
+    link: new App()
+      .setStrategy(new WhatsappStrategy())
+      .makeLink(message, { phone }),
     color,
   })
 }
