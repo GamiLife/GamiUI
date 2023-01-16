@@ -1,3 +1,5 @@
+import { canUseDom } from 'core/helpers/dom.helper'
+import React, { Fragment } from 'react'
 import { App, createShareButton, IApp, IAppOptions } from '../utils'
 
 export class TiktokStrategy implements IApp {
@@ -16,9 +18,16 @@ export interface ITiktok {
 }
 
 export const Tiktok = ({ color = '#000000', user }: ITiktok) => {
-  return createShareButton({
-    app: 'tiktok',
-    link: new App().setStrategy(new TiktokStrategy()).makeLink('', { user }),
-    color,
-  })
+  return (
+    <Fragment>
+      {canUseDom &&
+        createShareButton({
+          app: 'tiktok',
+          link: new App()
+            .setStrategy(new TiktokStrategy())
+            .makeLink('', { user }),
+          color,
+        })}
+    </Fragment>
+  )
 }

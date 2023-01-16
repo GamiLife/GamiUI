@@ -1,3 +1,5 @@
+import { canUseDom } from 'core/helpers/dom.helper'
+import React, { Fragment } from 'react'
 import { lightTheme } from 'styles/tokens/lightTheme'
 import { App, createShareButton, IApp, IAppOptions } from '../utils'
 
@@ -21,9 +23,16 @@ export const Instagram = ({
   color = lightTheme.primary.mediumPurple,
   user,
 }: IInstragram) => {
-  return createShareButton({
-    app: 'instagram',
-    link: new App().setStrategy(new InstagramStrategy()).makeLink('', { user }),
-    color,
-  })
+  return (
+    <Fragment>
+      {canUseDom &&
+        createShareButton({
+          app: 'instagram',
+          link: new App()
+            .setStrategy(new InstagramStrategy())
+            .makeLink('', { user }),
+          color,
+        })}
+    </Fragment>
+  )
 }

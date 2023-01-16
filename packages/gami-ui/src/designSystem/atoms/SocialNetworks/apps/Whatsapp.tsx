@@ -1,4 +1,6 @@
 import { transformObjectToParams } from 'core/helpers'
+import { canUseDom } from 'core/helpers/dom.helper'
+import React, { Fragment } from 'react'
 import { App, createShareButton, IApp, IAppOptions } from '../utils'
 
 export class WhatsappStrategy implements IApp {
@@ -24,11 +26,16 @@ export interface IWhatsapp {
 }
 
 export const Whatsapp = ({ message, phone, color = '#00E676' }: IWhatsapp) => {
-  return createShareButton({
-    app: 'whatsapp',
-    link: new App()
-      .setStrategy(new WhatsappStrategy())
-      .makeLink(message, { phone }),
-    color,
-  })
+  return (
+    <Fragment>
+      {canUseDom &&
+        createShareButton({
+          app: 'whatsapp',
+          link: new App()
+            .setStrategy(new WhatsappStrategy())
+            .makeLink(message, { phone }),
+          color,
+        })}
+    </Fragment>
+  )
 }
