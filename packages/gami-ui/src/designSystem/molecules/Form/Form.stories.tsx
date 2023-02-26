@@ -169,6 +169,7 @@ export const WithUseForm = () => {
           rules={[{ type: 'required', message: 'Campo requerido' }]}
           label="Color"
           name="colorpicker"
+          onChange={(value) => console.log('test', value)}
         >
           <ColorPicker />
         </Form.Item>
@@ -200,6 +201,66 @@ export const WithUseForm = () => {
               { value: 'strawberry', label: 'Strawberry' },
               { value: 'vanilla', label: 'Vanilla' },
             ]}
+          />
+        </Form.Item>
+      </Form>
+
+      <Container>
+        <Button onClick={handleSubmit}>Submit</Button>
+      </Container>
+    </Container>
+  )
+}
+
+export const WithCustomField = () => {
+  const { form } = Form.useForm({
+    defaultValue: {
+      names: 'test',
+      password: 'description',
+    },
+  })
+
+  const handleSubmit = () => {
+    form.validate()
+  }
+
+  return (
+    <Container>
+      <Form
+        form={form}
+        onSubmitForm={(values: any) => {
+          console.log(values)
+        }}
+      >
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Nombres"
+          name="names"
+        >
+          <Input placeholder="Titulo" />
+        </Form.Item>
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Descripcion"
+          name="password"
+        >
+          <Input placeholder="Descripcion" />
+        </Form.Item>
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Custom Field"
+          name="custom"
+        >
+          <Form.FormCustomField
+            type="string"
+            render={({ onChangeFormItem, value }) => (
+              <input
+                value={value}
+                onChange={(e) => {
+                  onChangeFormItem?.(e.target.value)
+                }}
+              />
+            )}
           />
         </Form.Item>
       </Form>

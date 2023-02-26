@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react'
-
 import { storyConfig } from './storyConfig'
 
 const { mainConfig, stories } = storyConfig

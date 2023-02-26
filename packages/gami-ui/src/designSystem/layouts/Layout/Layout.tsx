@@ -1,3 +1,4 @@
+import { IGenericEvents } from 'core/domain/interfaces/IGeneralProps'
 import { cls } from 'core/utils/cls'
 import useCssHandle from 'hooks/useCssHandle'
 import React, { Fragment } from 'react'
@@ -55,33 +56,81 @@ const Header = ({
   isSticky = false,
   style,
   className = '',
-}: IHeader) => {
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+}: IHeader & IGenericEvents) => {
   return (
-    <S.Header style={style} className={cls(className, { sticky: isSticky })}>
+    <S.Header
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={style}
+      className={cls(className, { sticky: isSticky })}
+    >
       {children}
     </S.Header>
   )
 }
 
-const Content = ({ children, style, className }: ILayoutElement) => {
+const Content = ({
+  children,
+  style,
+  className,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+}: ILayoutElement & IGenericEvents) => {
   return (
-    <S.Content style={style} className={className}>
+    <S.Content
+      style={style}
+      className={className}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {children}
     </S.Content>
   )
 }
 
-const Sidebar = ({ children, style, className }: ILayoutElement) => {
+const Sidebar = ({
+  children,
+  style,
+  className,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+}: ILayoutElement & IGenericEvents) => {
   return (
-    <S.Sidebar style={style} className={className}>
+    <S.Sidebar
+      style={style}
+      className={className}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {children}
     </S.Sidebar>
   )
 }
 
-const Footer = ({ children, style, className }: ILayoutElement) => {
+const Footer = ({
+  children,
+  style,
+  className,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+}: ILayoutElement & IGenericEvents) => {
   return (
-    <S.Footer style={style} className={className}>
+    <S.Footer
+      style={style}
+      className={className}
+      onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {children}
     </S.Footer>
   )

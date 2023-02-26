@@ -3,11 +3,15 @@ import { useEffect, useRef, useState } from 'react'
 export interface IUseColorPicker {
   colorPicker: string
   setColorPicked: (value: string) => void
+  onDragEnd: () => void
+  onClick: (color: string) => void
 }
 
 export const useColorPicker = ({
   colorPicker,
   setColorPicked,
+  onDragEnd,
+  onClick,
 }: IUseColorPicker) => {
   const width = 200
   const height = 200
@@ -127,6 +131,7 @@ export const useColorPicker = ({
     const rgbColor = `rgb(${r},${g},${b})`
 
     setColorPicked(rgbColor)
+    return rgbColor
   }
 
   const handleStart = () => {
@@ -135,6 +140,7 @@ export const useColorPicker = ({
 
   const handleEnd = () => {
     setIsDnd(false)
+    onDragEnd()
   }
 
   const handleMove = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
@@ -165,7 +171,14 @@ export const useColorPicker = ({
     const rgbValues = getColorByPosition(x, y)
     if (!rgbValues) return
 
-    printColor(rgbValues)
+    const rgb = printColor(rgbValues)
+    onClick(rgb)
+
+    const contextPicker = getCtx(pickerRef)
+    if (!contextPicker) return
+
+    clear()
+    createPickerCircle(contextPicker, positions)
   }
 
   const build = () => {

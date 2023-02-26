@@ -19,6 +19,7 @@ import { cls } from 'core/utils/cls'
 import File from 'designSystem/atoms/File'
 import ColorPicker from 'designSystem/atoms/ColorPicker'
 import DatePicker from 'designSystem/atoms/DatePicker'
+import { FormCustomField } from './FormCustomField'
 
 export type TRulesType =
   | 'required'
@@ -41,13 +42,17 @@ export interface IFormItem {
   name: string
   children: React.ReactNode
   rules?: IRules[]
+  onChange?: (value: any) => void
 }
 
-const FormItem = ({ label = '', name, children }: IFormItem) => {
+const FormItem = ({ label = '', name, children, onChange }: IFormItem) => {
   const { formValue, setFormValues } = useFormStore()
 
-  const handleChangeValue = (value: any): void =>
-    setFormValues({ name, value: value === null ? undefined : value })
+  const handleChangeValue = (value: any): void => {
+    const valueTransformed = value === null ? undefined : value
+    setFormValues({ name, value: valueTransformed })
+    onChange?.(valueTransformed)
+  }
 
   const { yupErrors } = useFormStore()
   const { validatorChildrenLength, childrenWithProps } = useCloneElement({
@@ -62,6 +67,7 @@ const FormItem = ({ label = '', name, children }: IFormItem) => {
       propsOfElement: [{ props: {}, childrenConditionTypes: [Button] }],
     },
     childrenTypes: [
+      FormCustomField,
       Input,
       Password,
       TextArea,

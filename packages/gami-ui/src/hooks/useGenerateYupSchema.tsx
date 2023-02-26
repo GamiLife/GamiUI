@@ -15,6 +15,10 @@ import ColorPicker from 'designSystem/atoms/ColorPicker'
 import DatePicker from 'designSystem/atoms/DatePicker'
 import { OptionalArraySchema } from 'yup/lib/array'
 import { AnyObject } from 'yup/lib/types'
+import {
+  FormCustomField,
+  TFormCustomField,
+} from 'designSystem/molecules/Form/FormCustomField'
 
 interface IYupSchema {
   [key: string]: any
@@ -116,6 +120,7 @@ const useGenerateYupSchema = ({ children }: IUseGenerateYupSchema) => {
     React.Children.map(children, (child: React.ReactNode) => {
       const childrenCast = child as React.ReactElement
       const childrenTypeOfChildren = childrenCast.props.children?.type
+      const childrenPropsOfChildren = childrenCast.props.children?.props
 
       if (!childrenTypeOfChildren) return
 
@@ -124,6 +129,15 @@ const useGenerateYupSchema = ({ children }: IUseGenerateYupSchema) => {
       if (!rules || rules == undefined) return
 
       let rule: TRulesInstance | null = null
+
+      if (
+        FormCustomField === childrenTypeOfChildren &&
+        childrenPropsOfChildren
+      ) {
+        const { type } = childrenPropsOfChildren
+        const typeCasted = type as TFormCustomField
+        rule = Yup[typeCasted]()
+      }
 
       if (
         [Input, Password, TextArea, ColorPicker, DatePicker].includes(

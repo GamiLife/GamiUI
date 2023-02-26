@@ -9,7 +9,7 @@ export interface IWrapper {
   minHeight?: string
   isLoading: boolean
   loaderNode: React.ReactNode
-  children: React.ReactNode
+  children?: React.ReactNode
   className?: string
   as?: keyof JSX.IntrinsicElements
 }

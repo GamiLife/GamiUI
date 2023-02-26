@@ -1,5 +1,5 @@
 import Input from 'designSystem/atoms/Input'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as S from './ColorPicker.styles'
 import { useColorPicker } from './useColorPicker'
 import { usePickerTooltip } from 'hooks/usePickerTooltip'
@@ -17,7 +17,12 @@ const ColorPicker = ({ onChangeFormItem, value = '' }: IColorPicker) => {
   const inputRef =
     useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
 
+  const [colorPickerLocal, setColorPickerLocal] = useState(value)
   const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setColorPickerLocal(value)
+  }, [value])
 
   usePickerTooltip({
     tooltipRef,
@@ -33,8 +38,10 @@ const ColorPicker = ({ onChangeFormItem, value = '' }: IColorPicker) => {
     handleStart,
     handleEnd,
   } = useColorPicker({
-    colorPicker: value,
-    setColorPicked: (valueProp) => onChangeFormItem?.(valueProp),
+    colorPicker: colorPickerLocal,
+    setColorPicked: setColorPickerLocal,
+    onDragEnd: () => onChangeFormItem?.(colorPickerLocal),
+    onClick: (color: string) => onChangeFormItem?.(color),
   })
 
   const handleClickInput = () => setIsVisible(!isVisible)
@@ -63,9 +70,9 @@ const ColorPicker = ({ onChangeFormItem, value = '' }: IColorPicker) => {
           </S.CanvasContainer>
 
           <S.Info>
-            <S.SelectedViewer style={{ background: value }} />
+            <S.SelectedViewer style={{ background: colorPickerLocal }} />
             <S.SelectedTitle level="h4">
-              {value != '' ? value : 'Not Picked'}
+              {colorPickerLocal != '' ? colorPickerLocal : 'Not Picked'}
             </S.SelectedTitle>
           </S.Info>
         </S.ColorPicker>

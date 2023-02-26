@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import RichText from 'designSystem/atoms/RichText'
+import Container from 'designSystem/layouts/Container'
 import { mixinFlexVariants } from 'styles/mixins/flex'
 
 export const Form = styled.form`
@@ -50,3 +51,5 @@ export const FormError = styled.div`
   font-size: 10px;
   font-weight: 600;
 `
+
+export const FormCustomField = styled(Container)``
