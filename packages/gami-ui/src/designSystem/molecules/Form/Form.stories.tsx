@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/react'
 
 import Form from '.'
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../../atoms/Input'
 import Password from '../../atoms/Password'
 import Number from '../../atoms/Number'
@@ -13,6 +13,8 @@ import Container from '../../layouts/Container'
 import File from 'designSystem/atoms/File'
 import DatePicker from 'designSystem/atoms/DatePicker'
 import ColorPicker from 'designSystem/atoms/ColorPicker'
+import Row from 'designSystem/layouts/Row'
+import Icon from 'designSystem/atoms/Icon'
 
 export default {
   title: 'Molecules/Form',
@@ -263,6 +265,218 @@ export const WithCustomField = () => {
             )}
           />
         </Form.Item>
+      </Form>
+
+      <Container>
+        <Button onClick={handleSubmit}>Submit</Button>
+      </Container>
+    </Container>
+  )
+}
+
+export const WithFormList = () => {
+  const options = [
+    {
+      value: 'tiktok',
+      label: (
+        <Container
+          style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}
+        >
+          <Container
+            rounded="full"
+            padding="0.5rem"
+            style={{ background: 'white' }}
+          >
+            <Icon name="tiktok" />
+          </Container>
+          Tiktok
+        </Container>
+      ),
+    },
+    {
+      value: 'whatsapp',
+      label: (
+        <Container
+          style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}
+        >
+          <Container
+            rounded="full"
+            padding="0.5rem"
+            style={{ background: 'white' }}
+          >
+            <Icon name="whatsapp" />
+          </Container>
+          Whatsapp
+        </Container>
+      ),
+    },
+    {
+      value: 'instagram',
+      label: (
+        <Container
+          style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}
+        >
+          <Container
+            rounded="full"
+            padding="0.5rem"
+            style={{ background: 'white' }}
+          >
+            <Icon name="instagram" />
+          </Container>
+          Instagram
+        </Container>
+      ),
+    },
+    {
+      value: 'facebook',
+      label: (
+        <Container
+          style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}
+        >
+          <Container
+            rounded="full"
+            padding="0.5rem"
+            style={{ background: 'white' }}
+          >
+            <Icon name="facebook" />
+          </Container>
+          Facebook
+        </Container>
+      ),
+    },
+  ]
+
+  const [socialsSelected, setSocialsSelected] = useState<
+    Record<string, number>
+  >({})
+
+  const { form } = Form.useForm({
+    defaultValue: {
+      names: 'test',
+      password: 'description',
+    },
+  })
+
+  const handleSubmit = () => {
+    form.validate()
+  }
+
+  const getOptions = (index: number) => {
+    return options.filter((option) => {
+      const { value } = option
+      const fieldIndexPicked = socialsSelected?.[value]
+
+      if (fieldIndexPicked === undefined) return true
+      return fieldIndexPicked === index
+    })
+  }
+
+  return (
+    <Container>
+      <Form
+        form={form}
+        onSubmitForm={(values: any) => {
+          console.log(values)
+        }}
+      >
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Nombres"
+          name="names"
+        >
+          <Input placeholder="Titulo" />
+        </Form.Item>
+        <Form.Item
+          rules={[{ type: 'required', message: 'Campo requerido' }]}
+          label="Descripcion"
+          name="password"
+        >
+          <Input placeholder="Descripcion" />
+        </Form.Item>
+        <Form.List
+          label="Social Networks"
+          name="socialNetworks"
+          schema={['social', 'user', 'country-code', 'phone']}
+        >
+          {(fieldList, add, remove) => (
+            <Container>
+              <Container>
+                {fieldList.map(({ name }, index) => (
+                  <Row
+                    key={index}
+                    isWrap={false}
+                    gap="1rem"
+                    alignItems="center"
+                  >
+                    <Form.List.Item
+                      name="social"
+                      fieldItemName={name}
+                      fieldListName="socialNetworks"
+                      onChange={(valueSelected) => {
+                        if (!valueSelected) return
+                        const socialsSelectedModified = Object.entries(
+                          socialsSelected
+                        ).reduce((acc, [key, value]) => {
+                          if (value === index) return acc
+                          return { ...acc, [key]: value }
+                        }, {})
+                        setSocialsSelected({
+                          ...socialsSelectedModified,
+                          [valueSelected.value]: index,
+                        })
+                      }}
+                    >
+                      <Select
+                        isClearable
+                        placeholder="Type your option"
+                        options={getOptions(index)}
+                      />
+                    </Form.List.Item>
+                    <Form.List.Item
+                      name="user"
+                      fieldItemName={name}
+                      fieldListName="socialNetworks"
+                    >
+                      <Input placeholder="User" />
+                    </Form.List.Item>
+                    <Form.List.Item
+                      name="country-code"
+                      fieldItemName={name}
+                      fieldListName="socialNetworks"
+                    >
+                      <Input placeholder="Country Code" />
+                    </Form.List.Item>
+                    <Form.List.Item
+                      name="phone"
+                      fieldItemName={name}
+                      fieldListName="socialNetworks"
+                    >
+                      <Input placeholder="Phone" />
+                    </Form.List.Item>
+                    <Container>
+                      <Icon
+                        name="delete"
+                        onClick={() => {
+                          const socialsSelectedModified = Object.entries(
+                            socialsSelected
+                          ).reduce((acc, [key, value]) => {
+                            if (value === index) return acc
+                            return { ...acc, [key]: value }
+                          }, {})
+                          setSocialsSelected(socialsSelectedModified)
+                          remove(name)
+                        }}
+                      />
+                    </Container>
+                  </Row>
+                ))}
+              </Container>
+              <Container>
+                <Button onClick={() => add()}>Add new Item</Button>
+              </Container>
+            </Container>
+          )}
+        </Form.List>
       </Form>
 
       <Container>

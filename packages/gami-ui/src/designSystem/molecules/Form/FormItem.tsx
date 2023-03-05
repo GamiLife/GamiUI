@@ -1,110 +1,35 @@
+import { useFormStore } from 'hooks/index'
 import React from 'react'
+import FormItemTemplate, { IFormItemTemplate } from './FormItemTemplate'
 
-import Button from 'designSystem/atoms/Button'
+export type IFormItem = Omit<
+  IFormItemTemplate,
+  'fnSetValuesStore' | 'fnGetErrors' | 'fnGetValue'
+>
 
-import Number from 'designSystem/atoms/Number'
-import Input from 'designSystem/atoms/Input'
-import Password from 'designSystem/atoms/Password'
-import Radio from 'designSystem/atoms/Radio'
-import Select from 'designSystem/atoms/Select'
-import TextArea from 'designSystem/atoms/TextArea'
+const FormItem = (props: IFormItem) => {
+  const { formValue, setFormValues, yupErrors } = useFormStore()
 
-import useFormStore from 'hooks/store/useFormStore'
-import useCloneElement from 'hooks/useCloneElements'
-
-import * as S from './Form.styles'
-
-import FormError from './FormError'
-import { cls } from 'core/utils/cls'
-import File from 'designSystem/atoms/File'
-import ColorPicker from 'designSystem/atoms/ColorPicker'
-import DatePicker from 'designSystem/atoms/DatePicker'
-import { FormCustomField } from './FormCustomField'
-
-export type TRulesType =
-  | 'required'
-  | 'email'
-  | 'maxNumber'
-  | 'minNumber'
-  | 'minLength'
-  | 'maxLength'
-  | 'custom'
-
-export interface IRules {
-  fn?: (value: any, formValues: any) => boolean
-  type: TRulesType
-  message: string
-  value?: number
-}
-
-export interface IFormItem {
-  label?: string
-  name: string
-  children: React.ReactNode
-  rules?: IRules[]
-  onChange?: (value: any) => void
-}
-
-const FormItem = ({ label = '', name, children, onChange }: IFormItem) => {
-  const { formValue, setFormValues } = useFormStore()
-
-  const handleChangeValue = (value: any): void => {
+  const fnSetValuesStore = (value: any) => {
     const valueTransformed = value === null ? undefined : value
-    setFormValues({ name, value: valueTransformed })
-    onChange?.(valueTransformed)
+    setFormValues({ name: props.name, value: valueTransformed })
+
+    return valueTransformed
   }
 
-  const { yupErrors } = useFormStore()
-  const { validatorChildrenLength, childrenWithProps } = useCloneElement({
-    children,
-    propsElement: {
-      name,
-      value: formValue?.[name] ?? '',
-      onChangeFormItem: handleChangeValue,
-    },
-    maxChildrenNumber: 1,
-    advancedOptions: {
-      propsOfElement: [{ props: {}, childrenConditionTypes: [Button] }],
-    },
-    childrenTypes: [
-      FormCustomField,
-      Input,
-      Password,
-      TextArea,
-      Select,
-      Radio,
-      Number,
-      Button,
-      File,
-      ColorPicker,
-      DatePicker,
-    ],
-  })
-
-  if (validatorChildrenLength(childrenWithProps)) {
-    return null
+  const fnGetErrors = () => {
+    return yupErrors?.[props.name]
   }
 
-  const hasErrors = yupErrors?.[name]
+  const fnGetValue = () => formValue?.[props.name]
 
   return (
-    <S.FormItem
-      className={cls('test', {
-        error: !!hasErrors,
-      })}
-    >
-      {label != '' && (
-        <S.FormLabel
-          fontWeight="semibold"
-          text={label}
-          width="auto"
-          height="auto"
-          rounded="none"
-        />
-      )}
-      {childrenWithProps}
-      <FormError name={name} />
-    </S.FormItem>
+    <FormItemTemplate
+      {...props}
+      fnSetValuesStore={fnSetValuesStore}
+      fnGetErrors={fnGetErrors}
+      fnGetValue={fnGetValue}
+    />
   )
 }
 

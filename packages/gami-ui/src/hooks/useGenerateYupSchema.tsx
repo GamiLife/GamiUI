@@ -9,7 +9,7 @@ import Radio from '../designSystem/atoms/Radio'
 
 import * as Yup from 'yup'
 import { BooleanSchema, NumberSchema, ObjectSchema, StringSchema } from 'yup'
-import { IFormItem, IRules } from '../designSystem/molecules/Form/FormItem'
+import { IRules } from '../designSystem/molecules/Form/FormItemTemplate'
 import File from 'designSystem/atoms/File'
 import ColorPicker from 'designSystem/atoms/ColorPicker'
 import DatePicker from 'designSystem/atoms/DatePicker'
@@ -19,6 +19,7 @@ import {
   FormCustomField,
   TFormCustomField,
 } from 'designSystem/molecules/Form/FormCustomField'
+import { IFormItem } from 'designSystem/molecules/Form/FormItem'
 
 interface IYupSchema {
   [key: string]: any

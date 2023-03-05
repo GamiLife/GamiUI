@@ -5,6 +5,7 @@ import FormContent from './FormContent'
 import FormItem from './FormItem'
 import { TFormValues, useForm } from 'hooks/useForm'
 import { FormCustomField } from './FormCustomField'
+import FormList from './FormList'
 
 export interface IFormProps extends IGeneralProps {
   /**
@@ -34,5 +35,6 @@ const Form = ({ children, onSubmitForm, ...args }: IFormProps) => {
 Form.FormCustomField = FormCustomField
 Form.Item = FormItem
 Form.useForm = useForm
+Form.List = FormList
 
 export default Form
