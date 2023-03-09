@@ -347,7 +347,7 @@ export const WithFormList = () => {
   ]
 
   const [socialsSelected, setSocialsSelected] = useState<
-    Record<string, number>
+    Record<string, string>
   >({})
 
   const { form } = Form.useForm({
@@ -361,13 +361,48 @@ export const WithFormList = () => {
     form.validate()
   }
 
-  const getOptions = (index: number) => {
-    return options.filter((option) => {
+  const getOptions = (name: string) => {
+    const optionsModified = options.filter((option) => {
       const { value } = option
       const fieldIndexPicked = socialsSelected?.[value]
 
       if (fieldIndexPicked === undefined) return true
-      return fieldIndexPicked === index
+      return fieldIndexPicked === name
+    })
+
+    return optionsModified
+  }
+
+  const handleRemove = (name: string) => {
+    let index = 0
+    const socialsSelectedModified = Object.entries(socialsSelected).reduce(
+      (acc, [key, value], currentIndex) => {
+        if (value === name) {
+          index = 1
+          return acc
+        }
+        return {
+          ...acc,
+          [key]: `socialNetworks_${currentIndex - index}`,
+        }
+      },
+      {}
+    )
+    setSocialsSelected(socialsSelectedModified)
+  }
+
+  const handleChangeSocialNetwork = (valueSelected: any, name: string) => {
+    if (!valueSelected) return
+    const socialsSelectedModified = Object.entries(socialsSelected).reduce(
+      (acc, [key, value]) => {
+        if (value === name) return acc
+        return { ...acc, [key]: value }
+      },
+      {}
+    )
+    setSocialsSelected({
+      ...socialsSelectedModified,
+      [valueSelected.value]: name,
     })
   }
 
@@ -401,35 +436,19 @@ export const WithFormList = () => {
           {(fieldList, add, remove) => (
             <Container>
               <Container>
-                {fieldList.map(({ name }, index) => (
-                  <Row
-                    key={index}
-                    isWrap={false}
-                    gap="1rem"
-                    alignItems="center"
-                  >
+                {fieldList.map(({ name }) => (
+                  <Row key={name} isWrap={false} gap="1rem" alignItems="center">
                     <Form.List.Item
                       name="social"
                       fieldItemName={name}
                       fieldListName="socialNetworks"
                       onChange={(valueSelected) => {
-                        if (!valueSelected) return
-                        const socialsSelectedModified = Object.entries(
-                          socialsSelected
-                        ).reduce((acc, [key, value]) => {
-                          if (value === index) return acc
-                          return { ...acc, [key]: value }
-                        }, {})
-                        setSocialsSelected({
-                          ...socialsSelectedModified,
-                          [valueSelected.value]: index,
-                        })
+                        handleChangeSocialNetwork(valueSelected, name)
                       }}
                     >
                       <Select
-                        isClearable
                         placeholder="Type your option"
-                        options={getOptions(index)}
+                        options={getOptions(name)}
                       />
                     </Form.List.Item>
                     <Form.List.Item
@@ -457,13 +476,7 @@ export const WithFormList = () => {
                       <Icon
                         name="delete"
                         onClick={() => {
-                          const socialsSelectedModified = Object.entries(
-                            socialsSelected
-                          ).reduce((acc, [key, value]) => {
-                            if (value === index) return acc
-                            return { ...acc, [key]: value }
-                          }, {})
-                          setSocialsSelected(socialsSelectedModified)
+                          handleRemove(name)
                           remove(name)
                         }}
                       />
@@ -471,9 +484,11 @@ export const WithFormList = () => {
                   </Row>
                 ))}
               </Container>
-              <Container>
-                <Button onClick={() => add()}>Add new Item</Button>
-              </Container>
+              {fieldList.length < options.length && (
+                <Container>
+                  <Button onClick={() => add()}>Add new Item</Button>
+                </Container>
+              )}
             </Container>
           )}
         </Form.List>
