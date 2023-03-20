@@ -1,7 +1,7 @@
 import React from 'react'
 import { IGeneralProps } from 'core/domain/interfaces/IGeneralProps'
 import * as S from './Card.styles'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 
 import { Footer } from './Footer'
 import { Content } from './Content'
@@ -15,7 +15,7 @@ export interface ICard extends IGeneralProps {
 }
 
 export const Card = ({ children, ...genericsProps }: ICard) => (
-  <S.Card {...getGenericPropStyles(genericsProps)}>{children}</S.Card>
+  <S.Card {...getDesignProps(genericsProps)}>{children}</S.Card>
 )
 
 Card.Cover = Cover

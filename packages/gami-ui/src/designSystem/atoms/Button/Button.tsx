@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { IGeneralProps } from 'core/domain/interfaces/IGeneralProps'
 import { ButtonHtmlType } from 'core/domain/types'
 import * as S from './Button.styles'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 import Spacer from 'designSystem/layouts/Spacer'
 import withDefaults from 'hocs/WithDefault'
 import useCssHandle from 'hooks/useCssHandle'
@@ -51,7 +51,7 @@ const Button = ({
 
   return (
     <S.Button
-      {...getGenericPropStyles(genericsProps)}
+      {...getDesignProps(genericsProps)}
       $variant={variant}
       $bordered={bordered}
       $ghost={ghost}

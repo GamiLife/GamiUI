@@ -6,9 +6,9 @@ import {
   WidthType,
 } from 'core/domain/types'
 import { opacity, spacing, zIndex } from 'styles/tokens'
-import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
+import { WithDesignStyledComponent } from 'styles/utilities/commonComponent'
 
-export const RadioGroup = InheritGlobalStylesComponent(styled.div<{
+export const RadioGroup = WithDesignStyledComponent(styled.div<{
   $border?: RoundedType
   $shadow?: ShadowType
   $width?: WidthType

@@ -2,14 +2,20 @@ import { css } from '@emotion/react'
 import { defaultTheme } from 'styles/tokens'
 import { lightTheme } from 'styles/tokens/lightTheme'
 
-export const mixinInput = (themeType: 'light' | 'dark') => css`
+export const mixinInput = (
+  themeType: 'light' | 'dark',
+  backgroundColor = 'white'
+) => css`
   outline: none;
   appearance: none;
 
   width: 100%;
   height: inherit;
 
-  background-color: white;
+  ${backgroundColor &&
+  css`
+    background-color: ${backgroundColor};
+  `}
   padding-left: 0.5rem;
   padding-bottom: 0.5rem;
 

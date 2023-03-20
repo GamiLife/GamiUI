@@ -3,7 +3,7 @@ import { IGeneralProps } from 'core/domain/interfaces/IGeneralProps'
 import Image from '../Image'
 import * as S from './Avatar.styles'
 
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 import { REGEX_RULES } from 'core/utils/constants'
 import withDefaults from 'hocs/WithDefault'
 import { IUseImage } from 'hooks/useImage'
@@ -119,14 +119,14 @@ const Avatar = ({
 
   return (
     <S.Avatar
-      className={cls(handles.wrapper, genericsProps?.className ?? '', {
+      className={cls(handles.wrapper, {
         zoom__outside: zoomMode == 'outside',
         zoom__inside: zoomMode == 'inside',
       })}
       $borderColor={borderColor}
       $textColor={textColor}
       $background={background}
-      {...getGenericPropStyles(genericsProps)}
+      {...getDesignProps(genericsProps)}
     >
       {renderContent()}
     </S.Avatar>

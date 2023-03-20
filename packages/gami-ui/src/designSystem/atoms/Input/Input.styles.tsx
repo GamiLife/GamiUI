@@ -8,23 +8,23 @@ import {
   WidthType,
 } from 'core/domain/types'
 import Container from 'designSystem/layouts/Container'
-import { mixinFlexVariants } from 'styles/mixins/flex'
+import { flex } from 'styles/mixins/flex'
 import { mixinInput } from 'styles/mixins/input'
 import { spacing } from 'styles/tokens'
-import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
+import { WithDesignStyledComponent } from 'styles/utilities/commonComponent'
 
 export const Input = styled.input`
   padding-top: ${spacing.padding.md};
   padding-bottom: ${spacing.padding.xs};
 
-  ${mixinInput('light')}
+  ${mixinInput('light', '')}
 `
 
 export const PrefixContainer = styled(Container)`
   margin-bottom: 5px;
 `
 
-export const InputBox = InheritGlobalStylesComponent(
+export const InputBox = WithDesignStyledComponent(
   styled.div<{
     $border?: RoundedType
     $shadow?: ShadowType
@@ -35,7 +35,7 @@ export const InputBox = InheritGlobalStylesComponent(
   }>`
     overflow: hidden;
     background: white;
-    ${mixinFlexVariants({ alignItems: 'flex-end' })}
+    ${flex({ alignItems: 'flex-end' })}
     max-width: 300px;
 
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);

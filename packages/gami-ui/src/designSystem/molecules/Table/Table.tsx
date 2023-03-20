@@ -1,6 +1,6 @@
 import React from 'react'
 import { IGeneralProps } from 'core/domain/interfaces/IGeneralProps'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 
 import * as S from './Table.styles'
 import { cls } from 'core/utils/cls'
@@ -26,7 +26,7 @@ const Table = ({ children, ...genericsProps }: ITable) => {
   return (
     <S.TableContainer
       className={cls(genericsProps?.className ?? '')}
-      {...getGenericPropStyles(genericsProps)}
+      {...getDesignProps(genericsProps)}
     >
       <S.Table>{children}</S.Table>
     </S.TableContainer>

@@ -1,49 +1,44 @@
-import styled from '@emotion/styled'
 import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import Row from 'designSystem/layouts/Row'
 import { ICustomTheme } from 'providers/ThemeGamification/ThemeGamification'
-import { mixinFlexVariants } from 'styles/mixins/flex'
-import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
-import { validatorProperty } from 'styles/utilities/validatorsCss'
+import { flex } from 'styles/mixins/flex'
+import { mixinFontWeight } from 'styles/mixins/fonts'
+import { hover, zoom } from 'styles/mixins/transition'
+import { WithDesignStyledComponent } from 'styles/utilities/commonComponent'
+import { validProp } from 'styles/utilities/validatorsCss'
 
-const valideZoomMode = () => css`
-  &.zoom__outside,
-  &.zoom__inside {
-    transition: transform 0.2s;
-  }
-  &.zoom__outside:hover {
-    transform: scale(1.2);
-  }
-  &.zoom__inside:hover {
-    transform: scale(0.8);
-  }
-`
+interface IAvatarS {
+  $borderColor?: string
+  $background?: string
+  $textColor?: string
+  theme?: ICustomTheme
+}
 
-export const Avatar = InheritGlobalStylesComponent(
-  styled.div<{
-    $borderColor?: string
-    $background?: string
-    $textColor?: string
-    theme?: ICustomTheme
-  }>`
-    width: ${({ theme }) => theme.tokens.sizes.components.avatar.md};
-    height: ${({ theme }) => theme.tokens.sizes.components.avatar.md};
-
-    background: ${({ $background }) => $background};
-    overflow: hidden;
-
-    ${({ $textColor }) => validatorProperty('color', $textColor)}
-    ${({ $borderColor }) =>
-      validatorProperty('border-color', `1px solid ${$borderColor}`)}
-
-  ${valideZoomMode()}
-
-  ${mixinFlexVariants({ justifyContent: 'center', alignItems: 'center' })};
-
-    &:hover {
-      cursor: pointer;
-    }
-  `,
+export const Avatar = WithDesignStyledComponent(
+  styled.div<IAvatarS>(
+    (props) => ({
+      width: props.theme.tokens.sizes.components.avatar.md,
+      height: props.theme.tokens.sizes.components.avatar.md,
+      background: props.$background,
+      overflow: 'hidden',
+    }),
+    ({ $textColor, $borderColor }) => css`
+      ${validProp('color', $textColor)};
+      ${validProp('border-color', `1px solid ${$borderColor}`, !!$borderColor)};
+      ${flex({ justifyContent: 'center', alignItems: 'center' })};
+      ${zoom({ time: 0.2, scale: 0.8 })}
+      ${hover}
+    `
+    /*{
+      variants: {
+        zoom: {
+          inside: zoom({ time: 0.2, scale: 0.8 }),
+          outside: zoom({ time: 0.2, scale: 1.2 })
+        }
+      }
+    }*/
+  ),
   'avatar'
 )
 
@@ -53,9 +48,13 @@ export const AvatarGroup = styled(Row)`
   }
 `
 
-export const Count = styled(Row)`
-  width: 30px;
-  height: 100%;
-  margin-left: 0.4rem;
-  font-weight: bold;
-`
+export const Count = styled(Row)<Pick<IAvatarS, 'theme'>>(
+  {
+    width: '30px',
+    height: '100%',
+    marginLeft: '0.4rem',
+  },
+  ({ theme }) => css`
+    ${mixinFontWeight(theme, 'bold')}
+  `
+)

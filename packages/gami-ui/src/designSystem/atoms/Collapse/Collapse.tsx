@@ -9,7 +9,7 @@ import useToggle from 'hooks/useToggle'
 import React, { useEffect, useRef, useState } from 'react'
 import Icon from '../Icon'
 import * as S from './Collapse.styles'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 import useCollapseStore from 'hooks/store/useCollapseStore'
 import CollapseGroup from './CollapseGroup'
 
@@ -123,7 +123,7 @@ const Collapse = ({
 
   return (
     <S.Collapse
-      {...getGenericPropStyles(genericsProps)}
+      {...getDesignProps(genericsProps)}
       className={cls(handles.wrapper, genericsProps?.className ?? '', {
         divider: hasDivider(),
       })}

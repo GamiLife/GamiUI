@@ -1,7 +1,7 @@
 import React from 'react'
 import * as S from './Container.styles'
 import { IGeneralProps } from 'core/domain/interfaces/IGeneralProps'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 import withDefaults from 'hocs/WithDefault'
 import useCssHandle from 'hooks/useCssHandle'
 import { cls } from 'core/utils/cls'
@@ -39,7 +39,7 @@ const Container = ({ children, as, ...genericsProps }: IContainer) => {
     <S.Container
       className={cls(handles.wrapper, genericsProps?.className ?? '')}
       as={as}
-      {...getGenericPropStyles(genericsProps)}
+      {...getDesignProps(genericsProps)}
       {...dangerousField}
     >
       {genericsProps.dangerouslySetInnerHTML ? undefined : children}

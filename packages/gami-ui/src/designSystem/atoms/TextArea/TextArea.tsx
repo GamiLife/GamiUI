@@ -1,5 +1,5 @@
 import React from 'react'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 import { IGeneralProps } from '../../../core/domain/interfaces/IGeneralProps'
 import { TOnChangeFormItem } from '../Input/Input'
 import * as S from './TextArea.styles'
@@ -64,7 +64,7 @@ const TextArea = ({
       rows={rows}
       value={value}
       onChange={handleChangeOnTextArea}
-      {...getGenericPropStyles(genericsProps)}
+      {...getDesignProps(genericsProps)}
     />
   )
 }

@@ -9,9 +9,9 @@ import {
 } from 'core/domain/types'
 import { mixinInput } from 'styles/mixins/input'
 import { spacing } from 'styles/tokens'
-import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
+import { WithDesignStyledComponent } from 'styles/utilities/commonComponent'
 
-export const TextArea = InheritGlobalStylesComponent(
+export const TextArea = WithDesignStyledComponent(
   styled.textarea<{
     $border?: RoundedType
     $shadow?: ShadowType

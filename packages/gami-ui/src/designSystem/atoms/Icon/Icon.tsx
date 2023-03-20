@@ -3,7 +3,7 @@ import { IGeneralProps } from 'core/domain/interfaces/IGeneralProps'
 import { IconNames } from 'core/domain/types'
 import { IconsPack } from './constants'
 import * as S from './Icon.styles'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 import withDefaults from 'hocs/WithDefault'
 import useCssHandle from 'hooks/useCssHandle'
 import { cls } from 'core/utils/cls'
@@ -56,7 +56,7 @@ const Icon = ({
 
   return (
     <S.Icon
-      {...getGenericPropStyles(genericsProps)}
+      {...getDesignProps(genericsProps)}
       className={cls(handles.wrapper, genericsProps?.className ?? '', {
         hoverIcon: genericsProps?.onClick ? true : false,
       })}

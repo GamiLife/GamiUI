@@ -5,11 +5,11 @@ import {
   WidthType,
   HeightType,
 } from 'core/domain/types'
-import { mixinFlexVariants } from 'styles/mixins/flex'
+import { flex } from 'styles/mixins/flex'
 import { sizes, spacing, defaultTheme } from 'styles/tokens'
-import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
+import { WithDesignStyledComponent } from 'styles/utilities/commonComponent'
 
-export const Card = InheritGlobalStylesComponent(
+export const Card = WithDesignStyledComponent(
   styled.div<{
     $border?: RoundedType
     $shadow?: ShadowType
@@ -30,7 +30,7 @@ export const Cover = styled.div`
   margin: 0px;
   border-radius: 0;
 
-  ${mixinFlexVariants({ justifyContent: 'center' })}
+  ${flex({ justifyContent: 'center' })}
 `
 
 export const Content = styled.div`

@@ -6,7 +6,7 @@ import Mask from 'designSystem/atoms/Mask'
 import * as S from './Modal.styles'
 import ModalHeader from './ModalHeader'
 import ModalFooter from './ModalFooter'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 import { cls } from 'core/utils/cls'
 import Icon from 'designSystem/atoms/Icon'
 
@@ -82,7 +82,7 @@ const Modal = ({
       <Mask />
       <S.ModalDialog ref={(e) => (refDialog = e)}>
         <S.ModalContainer
-          {...getGenericPropStyles(genericsProps)}
+          {...getDesignProps(genericsProps)}
           $minHegiht={minHegiht}
           ref={(e: any) => (refContent = e)}
         >

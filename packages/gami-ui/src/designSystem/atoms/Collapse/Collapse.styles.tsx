@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { ComponentThemeType } from 'core/domain/types'
 import { ICustomTheme } from 'providers/ThemeGamification/ThemeGamification'
 import { mixinComponentsTheme } from 'styles/mixins/componentsTheme'
-import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
+import { WithDesignStyledComponent } from 'styles/utilities/commonComponent'
 
 export const Header = styled.div``
 
@@ -17,7 +17,7 @@ export const Children = styled.div`
   padding: 1rem;
 `
 
-export const Collapse = InheritGlobalStylesComponent(styled.div<{
+export const Collapse = WithDesignStyledComponent(styled.div<{
   $height: string
   $variant?: ComponentThemeType
   $bordered?: boolean

@@ -5,7 +5,7 @@ import useCssHandle from 'hooks/useCssHandle'
 import useImage, { IUseImage } from 'hooks/useImage'
 import React, { Fragment } from 'react'
 import * as S from './Image.styles'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 import { ImageBackgroundType } from 'core/domain/types'
 
 interface IImageLink {
@@ -126,7 +126,7 @@ const Image = ({
 
   const imageElement = children ? (
     <S.BackgroundImg
-      {...(!link ? getGenericPropStyles(genericsProps) : {})}
+      {...(!link ? getDesignProps(genericsProps) : {})}
       className={cls(
         handles.background__wrapper,
         genericsProps?.className ?? '',
@@ -140,7 +140,7 @@ const Image = ({
     </S.BackgroundImg>
   ) : (
     <S.Img
-      {...(!link ? getGenericPropStyles(genericsProps) : {})}
+      {...(!link ? getDesignProps(genericsProps) : {})}
       className={cls(handles.image__wrapper, genericsProps?.className ?? '', {
         [genericsProps.className ?? '']: link == null,
       })}
@@ -152,7 +152,7 @@ const Image = ({
 
   const maybeLink = link ? (
     <S.LinkImg
-      {...(link ? getGenericPropStyles(genericsProps) : {})}
+      {...(link ? getDesignProps(genericsProps) : {})}
       className={cls(handles.link__wrapper, genericsProps?.className ?? '', {
         [genericsProps.className ?? '']: link != null,
       })}

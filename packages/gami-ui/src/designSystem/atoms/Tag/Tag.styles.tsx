@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
-import { mixinFlexVariants } from 'styles/mixins/flex'
+import { flex } from 'styles/mixins/flex'
 import { rounded, spacing, defaultTheme } from 'styles/tokens'
-import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
+import { WithDesignStyledComponent } from 'styles/utilities/commonComponent'
 
-export const Tag = InheritGlobalStylesComponent(styled.div<{
+export const Tag = WithDesignStyledComponent(styled.div<{
   $background?: string
   $color?: string
 }>`
@@ -18,7 +18,7 @@ export const Tag = InheritGlobalStylesComponent(styled.div<{
     $background || defaultTheme.light.neutral[800]};
   color: ${({ $color }) => $color || defaultTheme.light.primary.jordyBlue};
 
-  ${mixinFlexVariants({ alignItems: 'center' })}
+  ${flex({ alignItems: 'center' })}
 `)
 
 export const BallMarker = styled.span<{ $background?: string }>`

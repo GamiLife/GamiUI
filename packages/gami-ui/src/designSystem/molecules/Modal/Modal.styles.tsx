@@ -1,9 +1,9 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { RoundedType, ShadowType } from 'core/domain/types'
-import { mixinFlexVariants } from 'styles/mixins/flex'
+import { flex } from 'styles/mixins/flex'
 import { spacing, defaultTheme, zIndex } from 'styles/tokens'
-import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
+import { WithDesignStyledComponent } from 'styles/utilities/commonComponent'
 
 export const Modal = styled.div`
   display: none;
@@ -24,7 +24,7 @@ export const ModalDialog = styled.div`
 
   z-index: ${zIndex[5]};
 
-  ${mixinFlexVariants({ justifyContent: 'center', alignItems: 'center' })}
+  ${flex({ justifyContent: 'center', alignItems: 'center' })}
 `
 
 export const ModalIconClose = styled.div`
@@ -40,13 +40,13 @@ const ModalLayout = () => css`
   min-height: 50px;
   padding: ${spacing.padding.md};
 
-  ${mixinFlexVariants({
+  ${flex({
     justifyContent: 'space-between',
     alignItems: 'center',
   })}
 `
 
-export const ModalContainer = InheritGlobalStylesComponent(
+export const ModalContainer = WithDesignStyledComponent(
   styled.div<{
     $border?: RoundedType
     $shadow?: ShadowType

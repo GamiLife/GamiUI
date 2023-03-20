@@ -1,6 +1,6 @@
 import { cls } from 'core/utils/cls'
 import React from 'react'
-import { getGenericPropStyles } from 'styles/utilities/genericPropStyles'
+import { getDesignProps } from 'styles/utilities/genericPropStyles'
 import { IGeneralProps } from '../../../core/domain/interfaces/IGeneralProps'
 import * as S from './Input.styles'
 
@@ -71,7 +71,7 @@ const Input = ({
 
   return (
     <S.InputBox
-      {...getGenericPropStyles(genericsProps)}
+      {...getDesignProps(genericsProps)}
       className={cls({
         positionPrefixRight: positionPrefix == 'right',
         positionPrefixLeft: positionPrefix == 'left',

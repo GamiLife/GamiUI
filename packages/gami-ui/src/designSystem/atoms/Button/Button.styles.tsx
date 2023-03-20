@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
-import { mixinFlexVariants } from 'styles/mixins/flex'
+import { flex } from 'styles/mixins/flex'
 import { ComponentThemeType } from 'core/domain/types'
 import { mixinComponentsTheme } from 'styles/mixins/componentsTheme'
-import { InheritGlobalStylesComponent } from 'styles/utilities/commonComponent'
+import { WithDesignStyledComponent } from 'styles/utilities/commonComponent'
 import { ICustomTheme } from 'providers/ThemeGamification/ThemeGamification'
 
-export const Button = InheritGlobalStylesComponent(
+export const Button = WithDesignStyledComponent(
   styled.button<{
     $variant?: ComponentThemeType
     $bordered?: boolean
@@ -29,7 +29,7 @@ export const Button = InheritGlobalStylesComponent(
       }
     }
 
-    ${mixinFlexVariants({ justifyContent: 'center', alignItems: 'center' })};
+    ${flex({ justifyContent: 'center', alignItems: 'center' })};
 
     padding: ${({ theme }) =>
       `${theme.tokens.spacing.padding.sm} ${theme.tokens.spacing.padding.md}`};

@@ -1,17 +1,17 @@
 /* eslint-disable no-undef */
 module.exports = {
   presets: [
-    '@babel/preset-env',
+    /*'@babel/preset-env',
     '@babel/preset-react',
     '@babel/preset-flow',
+    '@babel/preset-typescript',*/
     '@babel/preset-typescript',
-    '@emotion/babel-preset-css-prop',
   ],
   plugins: [
-    '@babel/plugin-proposal-class-properties',
+    /* '@babel/plugin-proposal-class-properties',
     '@babel/plugin-transform-react-jsx',
     '@babel/plugin-syntax-jsx',
-    'preval',
+    'preval',*/
     'tsconfig-paths-module-resolver',
     [
       'babel-plugin-replace-imports',
@@ -24,6 +24,9 @@ module.exports = {
       '@emotion',
       {
         cssPropOptimization: true,
+        sourceMap: true,
+        autoLabel: 'never',
+        labelFormat: '[local]',
         importMap: {
           '@emotion/styled-base': {
             default: {

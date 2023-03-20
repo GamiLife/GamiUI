@@ -1,10 +1,10 @@
 import styled from '@emotion/styled'
 import RichText from 'designSystem/atoms/RichText'
 import Container from 'designSystem/layouts/Container'
-import { mixinFlexVariants } from 'styles/mixins/flex'
+import { flex } from 'styles/mixins/flex'
 
 export const Form = styled.form`
-  ${mixinFlexVariants({ justifyContent: 'center', alignItems: 'center' })}
+  ${flex({ justifyContent: 'center', alignItems: 'center' })}
 
   flex-direction: column;
   background: 'white';
@@ -14,7 +14,7 @@ export const Form = styled.form`
 `
 
 export const FormItem = styled.div`
-  ${mixinFlexVariants({ justifyContent: 'center' })}
+  ${flex({ justifyContent: 'center' })}
 
   flex-direction: column;
   width: 100%;
@@ -43,7 +43,7 @@ export const FormErrorLabel = styled(RichText)`
 `
 
 export const FormError = styled.div`
-  ${mixinFlexVariants({ alignItems: 'center' })}
+  ${flex({ alignItems: 'center' })}
 
   color: #e32b2b;
   position: absolute;
